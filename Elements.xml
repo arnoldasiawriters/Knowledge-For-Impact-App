@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="RootModule">
+    <File Path="src\Default.aspx" Url="src/Default.aspx" ReplaceContent="TRUE" />
+    <File Path="src\app\App.js" Url="src/app/App.js" ReplaceContent="TRUE" />
+    <File Path="src\css\App.css" Url="src/css/App.css" ReplaceContent="TRUE" />
+  </Module>
+</Elements>
