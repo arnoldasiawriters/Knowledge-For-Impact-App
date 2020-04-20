@@ -2,5 +2,16 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SharePointSiteUrl>https://vsointernational.sharepoint.com/sites/develop-addins/kfi/</SharePointSiteUrl>
+    <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{C1CDDADD-2546-481F-9697-4EA41081F2FC}">
+        <ProjectStore>
+          <AppInstancePackageModifiedTime>2020-04-20T17:42:31.4178056Z</AppInstancePackageModifiedTime>
+          <AppInstanceId>eeacb928-5df9-484f-a43d-de3fd48de32c</AppInstanceId>
+        </ProjectStore>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

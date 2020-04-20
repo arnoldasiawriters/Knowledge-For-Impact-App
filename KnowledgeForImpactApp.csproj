@@ -48,8 +48,50 @@
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="src\app\adm-countries\countries-list.tpl.html" />
+    <Content Include="src\app\adm-countries\countries.js" />
+    <Content Include="src\app\adm-countries\countries-add.tpl.html" />
+    <Content Include="src\app\adm-financialyears\financialyears-add.tpl.html" />
+    <Content Include="src\app\adm-financialyears\financialyears-list.tpl.html" />
+    <Content Include="src\app\adm-financialyears\financialyears.js" />
+    <Content Include="src\app\adm-grants\grants-add.tpl.html" />
+    <Content Include="src\app\adm-grants\grants-list.tpl.html" />
+    <Content Include="src\app\adm-grants\grants.js" />
+    <Content Include="src\app\adm-programmes\programmes-add.tpl.html" />
+    <Content Include="src\app\adm-programmes\programmes-list.tpl.html" />
+    <Content Include="src\app\adm-programmes\programmes.js" />
+    <Content Include="src\app\adm-projects\projects-add.tpl.html" />
+    <Content Include="src\app\adm-projects\projects-list.tpl.html" />
+    <Content Include="src\app\adm-projects\projects.js" />
+    <Content Include="src\app\adm-quarters\quarters-add.tpl.html" />
+    <Content Include="src\app\adm-quarters\quarters-list.tpl.html" />
+    <Content Include="src\app\adm-quarters\quarters.js" />
     <Content Include="src\app\App.js" />
+    <Content Include="src\app\reachdata\reachdata-add.tpl.html" />
+    <Content Include="src\app\reachdata\reachdata-db.tpl.html" />
+    <Content Include="src\app\reachdata\reachdata.js" />
+    <Content Include="src\common\directives\add-btn\add-btn.dir.js" />
+    <Content Include="src\common\directives\add-btn\add-btn.tpl.html" />
+    <Content Include="src\common\directives\admin-menu\admin-menu.dir.js" />
+    <Content Include="src\common\directives\admin-menu\admin-menu.tpl.html" />
+    <Content Include="src\common\directives\back-btn\back-btn.dir.js" />
+    <Content Include="src\common\directives\back-btn\back-btn.tpl.html" />
+    <Content Include="src\common\directives\pagination\dirPagination.js" />
+    <Content Include="src\common\directives\pagination\dirPagination.tpl.html" />
+    <Content Include="src\common\directives\spinner\loading-spinner.css" />
+    <Content Include="src\common\directives\spinner\loading-spinner.js" />
+    <Content Include="src\common\directives\ui-bootstrap-dialogs.js" />
+    <Content Include="src\common\services\countries.js" />
+    <Content Include="src\common\services\financialyears.js" />
+    <Content Include="src\common\services\grants.js" />
+    <Content Include="src\common\services\programmes.js" />
+    <Content Include="src\common\services\projects.js" />
+    <Content Include="src\common\services\quarters.js" />
+    <Content Include="src\common\services\reachdata.js" />
+    <Content Include="src\common\utilities\sp-ng-module.js" />
+    <Content Include="src\common\utilities\utilities.js" />
     <Content Include="src\css\App.css" />
+    <Content Include="src\css\chat.css" />
     <Content Include="src\Default.aspx" />
     <None Include="packages.config" />
     <None Include="Pages\SharePointProjectItem.spdata">
@@ -104,11 +146,7 @@
       <SubType>Designer</SubType>
     </AppManifestFile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\common\directives\" />
-    <Folder Include="src\common\services\" />
-    <Folder Include="src\common\utilities\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,4 @@
+C:\Users\arnold.shangala\Source\Repos\KnowledgeForImpactApp\bin\Debug\KnowledgeForImpactApp.pdb
+C:\Users\arnold.shangala\Source\Repos\KnowledgeForImpactApp\obj\Debug\KnowledgeForImpactApp.csprojAssemblyReference.cache
+C:\Users\arnold.shangala\Source\Repos\KnowledgeForImpactApp\obj\Debug\KnowledgeForImpactApp.dll
+C:\Users\arnold.shangala\Source\Repos\KnowledgeForImpactApp\obj\Debug\KnowledgeForImpactApp.pdb

@@ -1,0 +1,227 @@
+﻿<div class="row">
+    <div class="col-md-3 page-font">
+        <i class="fa fa-balance-scale "></i> Scale and Reach Details
+    </div>
+    <div class="col-md-2">        
+        <a ng-href="{{ctrl.hostWebUrl}}" class="btn btn-sm btn-warning">
+            <i class="fa fa-angle-double-left"></i>
+            Go Back to Team Site
+        </a>
+    </div>
+    <div class="col-md-7">
+        <div class="pull-right">
+            <a href="#listAdminFinancialYears" class="btn btn-sm btn-danger">
+                <i class="fa fa-cog"></i>
+                Administration
+            </a>
+            <a href="#addEmergency" class="btn btn-sm btn-success">
+                <i class="fa fa-book"></i>
+                View Reports
+            </a>
+            <a href="#addEmergency" class="btn btn-sm btn-success">
+                <i class="fa fa-upload"></i>
+                Upload Excel
+            </a>
+            <a href="#addReachDatas" class="btn btn-sm btn-success">
+                <i class="fa fa-plus-circle"></i>
+                Add S & R Data
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <!--<label class="control-label">Emergency Country</label>
+                <input type="text" value="Kenya" ng-hide="ctrl.action == 'add'" disabled="disabled">-->
+                <select ng-model="ctrl.reachdata.financialyear"
+                        ng-options="x.title for x in ctrl.financialyears track by x.id"
+                        class="select form-control"
+                        ng-change="ctrl.SelectQuarter()">
+                    <option value="" class="" selected="selected">-- Select Financial Year --</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <select ng-model="ctrl.reachdata.quarter"
+                    ng-options="x.title for x in ctrl.quarters track by x.id"
+                    class="select form-control">
+                <option value="" class="" selected="selected">-- Select Quarter --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select ng-model="ctrl.reachdata.programme"
+                    ng-options="x.title for x in ctrl.programmes track by x.id"
+                    class="select form-control">
+                <option value="" class="" selected="selected">-- Select Practice Areas --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-sm btn-success form-control" ng-click="ctrl.SearchReachData()" type="button">
+                <i class="fa fa-spinner"></i>
+                Load
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="well" style="display: none;">
+    <div class="row">
+        <div class="col-md-3">
+            <label class="control-label" for="title">
+                Start Date:
+            </label>
+            <input class="form-control" id="title" name="title" type="date" ng-model="ctrl.sStartDate">
+        </div>
+        <div class="col-md-3">
+            <label class="control-label" for="title">
+                End Date:
+            </label>
+            <input class="form-control" id="title" name="title" type="date" ng-model="ctrl.sEndDate">
+        </div>
+        <div class="col-md-3">
+            <label class="control-label" for="title">
+                Filter By Dates:
+            </label>
+            <button class="btn btn-sm btn-primary form-control" ng-disabled="!ctrl.sStartDate || !ctrl.sEndDate || (ctrl.sStartDate > ctrl.sEndDate)" ng-click="ctrl.filterByReachDataDates()" type="button">
+                <i class="fa fa-filter"></i> Filter
+            </button>
+        </div>
+        <div class="col-md-3">
+            <label class="control-label">&nbsp;</label>
+            <button class="btn btn-sm btn-success form-control" ng-click="ctrl.init()" type="button">
+                <i class="fa fa-refresh"></i>
+                Refresh
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="#listReachData/0">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-align-justify gi-3X"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge ng-binding">{{ctrl.submitted}}</div>
+                            <div>Total Submitted</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="#listReachData/1">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-exclamation-sign gi-3X"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge ng-binding">{{ctrl.pending}}</div>
+                            <div>Total Pending</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="#listReachData/2">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-list-alt gi-3X"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge ng-binding">{{ctrl.review}}</div>
+                            <div>In Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="#listReachData/3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon glyphicon-ok gi-3X"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge ng-binding">{{ctrl.approved}}</div>
+                            <div>Total Approved</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-md-12">
+        <table class="table table-bordered table-condensed table-striped table-hover">
+            <tbody>
+                <tr>
+                    <th>Year</th>
+                    <th>Quarter</th>
+                    <th style="min-width: 150px;">Practice Area & Global Programmes</th>
+                    <th>Project</th>
+                    <th>Country</th>
+                    <th>ME Person</th>
+                    <th>Submitted?</th>
+                    <th style="width: 110px"></th>
+                </tr>
+
+                <tr dir-paginate="reachdata in ctrl.reachdatas | orderBy: '-financialyear' | orderBy: '-quarter' | itemsPerPage: 6">
+                    <td><span>{{reachdata.financialyear | date: 'dd/MM/yyyy HH:mm:ss' : 'africa/nairobi'}}</span></td>
+                    <td><span>{{reachdata.quarter}}</span></td>
+                    <td><span>{{reachdata.programme}}</span></td>
+                    <td><span>{{reachdata.project}}</span></td>
+                    <td><span>{{reachdata.country}}</span></td>
+                    <td><span>{{reachdata.meperson}}</span></td>
+                    <td><span>{{reachdata.status}}</span></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-xs btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
+                                Action
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#viewEmergency/{{reachdata.id}}">View</a></li>
+                                <li ng-if="reachdata.status == 'Director'">
+                                    <a href="#addCountryDirResponse/{{reachdata.id}}">Review</a>
+                                </li>
+                                <li ng-if="reachdata.status == 'Security' && ctrl.userinsecurity">
+                                    <a href="#/addSecurityResponse/{{reachdata.id}}">Approve</a>
+                                </li>
+                                <li ng-if="reachdata.status == 'Director' && reachdata.author.id == reachdata.userid">
+                                    <a href="#listEmergencies" ng-click="ctrl.deleteReachData(reachdata.id)">Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-12">
+        <dir-pagination-controls boundary-links="true" template-url="common/directives/pagination/dirPagination.tpl.html">
+        </dir-pagination-controls>
+    </div>
+</div>

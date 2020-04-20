@@ -5,5 +5,47 @@
     <ProjectItemFile Source="src\Default.aspx" Target="src\" Type="ElementFile" />
     <ProjectItemFile Source="src\app\App.js" Target="src\app\" Type="ElementFile" />
     <ProjectItemFile Source="src\css\App.css" Target="src\css\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\spinner\loading-spinner.css" Target="src\common\directives\spinner\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\spinner\loading-spinner.js" Target="src\common\directives\spinner\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\ui-bootstrap-dialogs.js" Target="src\common\directives\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\pagination\dirPagination.js" Target="src\common\directives\pagination\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\pagination\dirPagination.tpl.html" Target="src\common\directives\pagination\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\utilities\sp-ng-module.js" Target="src\common\utilities\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\utilities\utilities.js" Target="src\common\utilities\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\reachdata\reachdata-db.tpl.html" Target="src\app\reachdata\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\reachdata\reachdata.js" Target="src\app\reachdata\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\reachdata\reachdata-add.tpl.html" Target="src\app\reachdata\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\financialyears.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\programmes.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\quarters.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\reachdata.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\css\chat.css" Target="src\css\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\countries.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\grants.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\projects.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-countries\countries.js" Target="src\app\adm-countries\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-financialyears\financialyears.js" Target="src\app\adm-financialyears\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-grants\grants.js" Target="src\app\adm-grants\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-programmes\programmes.js" Target="src\app\adm-programmes\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-projects\projects.js" Target="src\app\adm-projects\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-quarters\quarters.js" Target="src\app\adm-quarters\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-countries\countries-add.tpl.html" Target="src\app\adm-countries\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-countries\countries-list.tpl.html" Target="src\app\adm-countries\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-financialyears\financialyears-list.tpl.html" Target="src\app\adm-financialyears\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-financialyears\financialyears-add.tpl.html" Target="src\app\adm-financialyears\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-grants\grants-add.tpl.html" Target="src\app\adm-grants\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-grants\grants-list.tpl.html" Target="src\app\adm-grants\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-programmes\programmes-add.tpl.html" Target="src\app\adm-programmes\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-programmes\programmes-list.tpl.html" Target="src\app\adm-programmes\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-projects\projects-add.tpl.html" Target="src\app\adm-projects\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-projects\projects-list.tpl.html" Target="src\app\adm-projects\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-quarters\quarters-list.tpl.html" Target="src\app\adm-quarters\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-quarters\quarters-add.tpl.html" Target="src\app\adm-quarters\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\admin-menu\admin-menu.tpl.html" Target="src\common\directives\admin-menu\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\admin-menu\admin-menu.dir.js" Target="src\common\directives\admin-menu\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\back-btn\back-btn.dir.js" Target="src\common\directives\back-btn\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\back-btn\back-btn.tpl.html" Target="src\common\directives\back-btn\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\add-btn\add-btn.dir.js" Target="src\common\directives\add-btn\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\add-btn\add-btn.tpl.html" Target="src\common\directives\add-btn\" Type="ElementFile" />
   </Files>
 </ProjectItem>
