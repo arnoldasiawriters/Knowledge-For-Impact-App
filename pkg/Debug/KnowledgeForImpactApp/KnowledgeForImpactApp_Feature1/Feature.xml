@@ -61,6 +61,8 @@
     <ElementFile Location="src\common\directives\back-btn\back-btn.tpl.html" />
     <ElementFile Location="src\common\directives\add-btn\add-btn.dir.js" />
     <ElementFile Location="src\common\directives\add-btn\add-btn.tpl.html" />
+    <ElementFile Location="src\common\people-picker\sp-peoplepicker.min.css" />
+    <ElementFile Location="src\common\people-picker\sp-peoplepicker.min.js" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

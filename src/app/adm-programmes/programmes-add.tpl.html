@@ -1,3 +1,38 @@
 ﻿<div class="bootstrap-iso ng-scope">
-    
+    <back-btn title="Back to Programmes List" link="listAdminProgrammes"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <div class="panel panel-info">
+                    <div class="panel-heading pnl-heading">ADD PROGRAMME INFORMATION</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Programme:</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.programme.title"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <div class="form-group pull-right">
+                            <a href="" class="btn btn-success" ng-disabled="!ctrl.programme.title" ng-click="ctrl.AddRecord()">
+                                <i class="fa fa-save"></i> Add Record
+                            </a>
+                            <a href="#listAdminProgrammes" class="btn btn-warning ">
+                                <i class="fa fa-cut"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

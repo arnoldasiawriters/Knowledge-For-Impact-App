@@ -2,9 +2,8 @@
     <back-btn title="Back to Reach Data List" link="listReachData"></back-btn>
     <div class="row">
         <div class="col-md-3">
-            <admin-menu></admin-menu>
+            <admin-menu menu-items="ctrl.links"></admin-menu>
         </div>
-
         <div class="col-md-9">
             <div class="admin-body">
                 <add-btn link="addAdminFinancialYears" title="Add Financial Year" ></add-btn>
@@ -16,7 +15,6 @@
                                     <th>Financial Year</th>
                                     <th style="min-width: 150px"></th>
                                 </tr>
-
                                 <tr dir-paginate="year in ctrl.years | orderBy: '-year' | itemsPerPage: 10">
                                     <td><span>{{year.title}}</span></td>
                                     <td>
@@ -26,8 +24,8 @@
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="#listEmergencies" ng-click="ctrl.deleteYear(year.id)">Delete</a>
+                                                <li>                                                    
+                                                    <a href="#listAdminFinancialYears" ng-click="ctrl.DeleteRecord(year.id)">Delete</a>
                                                 </li>
                                             </ul>
                                         </div>

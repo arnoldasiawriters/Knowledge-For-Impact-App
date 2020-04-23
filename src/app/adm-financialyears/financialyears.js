@@ -5,21 +5,72 @@
         .module('financialyears', [])
         .controller('financialyearsCtrl', FinancialyearsCtrl);
 
-    FinancialyearsCtrl.$inject = ['$q', 'YearsSvc', 'spinnerService'];
-    function FinancialyearsCtrl($q, YearsSvc, spinnerService) {
+    FinancialyearsCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$location', 'YearsSvc', 'spinnerService', 'UtilService'];
+    function FinancialyearsCtrl($q, $dialogConfirm, $route, $location, YearsSvc, spinnerService, UtilService) {
         var ctrl = this;
         ctrl.year = {};
-        spinnerService.show('spinner1');
+        ctrl.action = $route.current.$$route.param;
+        ctrl.links = UtilService.getAppShortcutlinks(1);
+
+        if (ctrl.action == 'list') {
+            spinnerService.show('spinner1');
+        }
+        
         var promises = [];
         promises.push(YearsSvc.getAllItems());
+
         $q
             .all(promises)
             .then(function (data) {
-                ctrl.years = data[0];
-                spinnerService.closeAll();
+                ctrl.years = data[0];                
             })
             .catch(function (error) {
-                console.log("An error occured when getting years!", error);
+                UtilService.showErrorMessage('#notification-area', error);
+            })
+            .finally(function () {
+                spinnerService.closeAll();
             });
+
+        ctrl.AddRecord = function () {
+            if (!ctrl.year.title) {
+                return;
+            }
+            $dialogConfirm('Add Record?', 'Confirm Transaction')
+                .then(function () {
+                    spinnerService.show('spinner1');
+                    YearsSvc
+                        .AddItem(ctrl.year)
+                        .then(function (res) {
+                            ctrl.years = res;
+                            UtilService.showSuccessMessage('#notification-area', 'Record added successfully!'); 
+                            $location.path("/listAdminFinancialYears");
+                        })
+                        .catch(function (error) {
+                            UtilService.showErrorMessage('#notification-area', error);
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
+                });
+        };        
+
+        ctrl.DeleteRecord = function (id) {            
+            $dialogConfirm('Delete Record?', 'Confirm Transaction')
+                .then(function () {
+                    spinnerService.show('spinner1');
+                    YearsSvc
+                        .DeleteItem(id)
+                        .then(function (res) {
+                            ctrl.years = res;
+                            UtilService.showSuccessMessage('#notification-area', 'Record deleted successfully!');
+                        })
+                        .catch(function (error) {
+                            UtilService.showErrorMessage('#notification-area', error);
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        })
+                });
+        };
     }
 })();

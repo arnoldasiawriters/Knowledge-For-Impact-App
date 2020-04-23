@@ -47,5 +47,7 @@
     <ProjectItemFile Source="src\common\directives\back-btn\back-btn.tpl.html" Target="src\common\directives\back-btn\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\directives\add-btn\add-btn.dir.js" Target="src\common\directives\add-btn\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\directives\add-btn\add-btn.tpl.html" Target="src\common\directives\add-btn\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\people-picker\sp-peoplepicker.min.css" Target="src\common\people-picker\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\people-picker\sp-peoplepicker.min.js" Target="src\common\people-picker\" Type="ElementFile" />
   </Files>
 </ProjectItem>

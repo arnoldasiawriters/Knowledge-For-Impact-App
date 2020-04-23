@@ -100,3 +100,7 @@
 .admin-add-btn {
     margin-bottom: 10px;
 }
+
+.button-active {
+    background-color: #227b95 !important;
+}

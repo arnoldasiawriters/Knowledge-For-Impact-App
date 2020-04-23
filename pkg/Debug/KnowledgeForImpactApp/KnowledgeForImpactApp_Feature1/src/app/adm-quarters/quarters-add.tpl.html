@@ -1,3 +1,85 @@
 ﻿<div class="bootstrap-iso ng-scope">
-    
+    <back-btn title="Back to Quarters List" link="listAdminQuarters"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <div class="panel panel-info">
+                    <div class="panel-heading pnl-heading">ADD QUARTER INFORMATION</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Quarter:</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.quarter.title"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Financial Year:</label>
+                                    <select ng-model="ctrl.quarter.year"
+                                            ng-options="x.title for x in ctrl.years track by x.id"
+                                            class="select form-control"
+                                            ng-required="true">
+                                        <option value="" class="" selected="selected">-- Choose Financial Year --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Start Date:</label>
+                                    <input class="form-control"
+                                           type="date"
+                                           ng-model="ctrl.quarter.startdate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">End Date:</label>
+                                    <input class="form-control"
+                                           type="date"
+                                           ng-model="ctrl.quarter.enddate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">End of Entry Date:</label>
+                                    <input class="form-control"
+                                           type="date"
+                                           ng-model="ctrl.quarter.endofentrydate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Abbreviation:</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.quarter.abbr">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <div class="form-group pull-right">
+                            <a href="" class="btn btn-success" ng-disabled="!ctrl.quarter.title || !ctrl.quarter.year" ng-click="ctrl.AddRecord()">
+                                <i class="fa fa-save"></i> Add Record
+                            </a>
+                            <a href="#listAdminQuarters" class="btn btn-warning ">
+                                <i class="fa fa-cut"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

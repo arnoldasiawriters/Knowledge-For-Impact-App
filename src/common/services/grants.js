@@ -33,5 +33,54 @@
                 });
             return defer.promise;
         };
+
+        svc.AddItem = function (grant) {
+            var defer = $q.defer();
+            var itemExists = _.some(grantsList, ['title', grant.title]);
+
+            if (itemExists) {
+                defer.reject("The item specified already exists in the system. Contact IT Service desk for support.");
+            } else {
+
+                var data = {
+                    Title: grant.title,
+                    Donor: grant.donor
+                };
+
+                ShptRestService
+                    .createNewListItem(listname, data)
+                    .then(function (response) {
+                        grant.id = response.ID;
+                        grantsList.push(grant);
+                        defer.resolve(grantsList);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        defer.reject("An error occured while adding the item. Contact IT Service desk for support.");
+                    });
+            }
+            return defer.promise;
+        };
+
+        svc.DeleteItem = function (id) {
+            var defer = $q.defer();
+            if (id) {
+                ShptRestService
+                    .deleteListItem(listname, id)
+                    .then(function () {
+                        _.remove(grantsList, {
+                            id: id
+                        });
+                        defer.resolve(grantsList);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        defer.reject("An error occured while deleting the item. Contact IT Service desk for support.");
+                    });
+            } else {
+                defer.reject('Item to be deleted is missing Id. Contact IT Service desk for support.');
+            }
+            return defer.promise;
+        };
     }
 })();

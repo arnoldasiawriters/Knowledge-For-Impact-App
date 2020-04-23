@@ -46,5 +46,7 @@
     <File Path="src\common\directives\back-btn\back-btn.tpl.html" Url="src/common/directives/back-btn/back-btn.tpl.html" ReplaceContent="TRUE" />
     <File Path="src\common\directives\add-btn\add-btn.dir.js" Url="src/common/directives/add-btn/add-btn.dir.js" ReplaceContent="TRUE" />
     <File Path="src\common\directives\add-btn\add-btn.tpl.html" Url="src/common/directives/add-btn/add-btn.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\people-picker\sp-peoplepicker.min.css" Url="src/common/people-picker/sp-peoplepicker.min.css" ReplaceContent="TRUE" />
+    <File Path="src\common\people-picker\sp-peoplepicker.min.js" Url="src/common/people-picker/sp-peoplepicker.min.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

@@ -14,11 +14,12 @@
     <script type="text/javascript" src="/_layouts/15/sp.taxonomy.js"></script>
 
      <!-- Add your CSS styles to the following file -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="common/directives/spinner/loading-spinner.css" />
-    <link rel="stylesheet" href="css/chat.css" />
-    <link rel="Stylesheet" type="text/css" href="css/App.css" />  
+    <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
+    <link  href="common/directives/spinner/loading-spinner.css" rel="stylesheet"/>
+    <link  href="css/chat.css" rel="stylesheet"/>
+    <link  href="css/App.css" rel="Stylesheet"/>  
+    <link  href="common/people-picker/sp-peoplepicker.min.css" rel="stylesheet" />
 
     <!-- Add your JavaScript to the following file -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -48,6 +49,7 @@
     <script type="text/javascript" src="common/directives/admin-menu/admin-menu.dir.js"></script>
     <script type="text/javascript" src="common/directives/add-btn/add-btn.dir.js"></script>
     <script type="text/javascript" src="common/directives/back-btn/back-btn.dir.js"></script>
+    <script type="text/javascript" src="common/people-picker/sp-peoplepicker.min.js"></script>
 
     <!--Controllers-->
     <script type="text/javascript" src="app/adm-financialyears/financialyears.js"></script>

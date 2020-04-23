@@ -1,3 +1,55 @@
 ﻿<div class="bootstrap-iso ng-scope">
-    
+    <back-btn title="Back to Reach Data List" link="listReachData"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <add-btn link="addAdminQuarters" title="Add Quarter"></add-btn>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>Quarter Name</th>
+                                    <th>Financial Year</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>End of Entry Date</th>
+                                    <th>Abbr</th>
+                                    <th style="min-width: 120px"></th>
+                                </tr>
+                                <tr dir-paginate="quarter in ctrl.quarters | orderBy: '-year' | orderBy: 'title' | itemsPerPage: 12">
+                                    <td><span>{{quarter.title}}</span></td>
+                                    <td><span>{{quarter.year.title}}</span></td>
+                                    <td><span>{{quarter.startdate  | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
+                                    <td><span>{{quarter.enddate | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
+                                    <td><span>{{quarter.endofentrydate | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
+                                    <td><span>{{quarter.abbr}}</span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-xs btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Action
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="#listAdminQuarters" ng-click="ctrl.DeleteRecord(quarter.id)">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-12">
+                        <dir-pagination-controls boundary-links="true" template-url="common/directives/pagination/dirPagination.tpl.html">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -98,18 +98,18 @@ angular
         };
 
         /**
-         * A function that returns the shortcut links.
-         */
+          * A function that returns the shortcut links.
+          */
         utilService.getAppShortcutlinks = function (activeLinkId) {
             var links = [
-                { 'id': 1, title: 'Home', icon: 'fa-home', url: '#listTraininglogs', class: '' },
-                { 'id': 2, title: 'Training Titles', icon: 'fa-file-text', url: '#listTrainings', class: '' },
-                { 'id': 3, title: 'Groups', icon: 'fa-globe', url: '#listGroups', class: '' },
-                { 'id': 4, title: 'Sections', icon: 'fa-home', url: '#listSections', class: '' },
-                { 'id': 5, title: 'Staff Admin', icon: 'fa-users', url: '#listPeople', class: '' },
-                { 'id': 6, title: 'Reports', icon: 'fa-th-list', url: '#listTrainingList/1', class: '' }];
+                { 'id': 1, title: 'Financial Years', icon: 'fa-dollar-sign', url: '#listAdminFinancialYears', class: '' },
+                { 'id': 2, title: 'Quarters', icon: 'fa-border-all', url: '#listAdminQuarters', class: '' },
+                { 'id': 3, title: 'Countries', icon: 'fa-flag', url: '#listAdminCountries', class: '' },
+                { 'id': 4, title: 'Grants', icon: 'fa-euro-sign', url: '#listAdminGrants', class: '' },
+                { 'id': 5, title: 'Programmes', icon: 'fa-book', url: '#listAdminProgrammes', class: '' },
+                { 'id': 6, title: 'Projects', icon: 'fa-users', url: '#listAdminProjects', class: '' }];
             var activeLink = _.find(links, ['id', activeLinkId]);
-            activeLink.class = "active";
+            activeLink.class = "button-active";
             return links;
         };
 
@@ -153,7 +153,7 @@ angular
         utilService.showSuccessMessage = function (domSelector, message) {
             $(domSelector).append($('<div/>', { class: 'myCustomAlerts' }).addClass('alert alert-success').append(message));
             setTimeout(function () {
-                $(".myCustomAlerts").fadeTo(3000, 0).slideUp(500, function () {
+                $(".myCustomAlerts").fadeTo(4000, 0).slideUp(500, function () {
                     $(this).alert('close');
                 });
             }, 1000);
@@ -165,9 +165,9 @@ angular
          * @param  {} message the message that will be displayed.
          */
         utilService.showErrorMessage = function (domSelector, message) {
-            $(domSelector).append($('<div/>', { class: 'myCustomAlerts' }).addClass('alert alert-warning').append(message));
+            $(domSelector).append($('<div/>', { class: 'myCustomAlerts' }).addClass('alert alert-danger').append(message));
             setTimeout(function () {
-                $(".myCustomAlerts").fadeTo(3000, 0).slideUp(500, function () {
+                $(".myCustomAlerts").fadeTo(8000, 0).slideUp(500, function () {
                     $(this).alert('close');
                 });
             }, 1000);

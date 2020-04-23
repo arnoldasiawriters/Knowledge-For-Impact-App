@@ -5,8 +5,73 @@
         .module('countries', [])
         .controller('countriesCtrl', CountriesCtrl);
 
-    CountriesCtrl.$inject = [];
-    function CountriesCtrl() {
+    CountriesCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$location', 'countriesSvc', 'spinnerService', 'UtilService'];
+    function CountriesCtrl($q, $dialogConfirm, $route, $location, countriesSvc, spinnerService, UtilService) {
         var ctrl = this;
+        ctrl.country = {};
+        ctrl.action = $route.current.$$route.param;
+        ctrl.links = UtilService.getAppShortcutlinks(3);
+
+        if (ctrl.action == 'list') {
+            spinnerService.show('spinner1');
+        }
+
+        var promises = [];
+        promises.push(countriesSvc.getAllItems());
+
+        $q
+            .all(promises)
+            .then(function (data) {
+                ctrl.countries = data[0];
+            })
+            .catch(function (error) {
+                UtilService.showErrorMessage('#notification-area', error);
+            })
+            .finally(function () {
+                spinnerService.closeAll();
+            });
+
+        ctrl.AddRecord = function () {
+            if (!ctrl.country.title) {
+                return;
+            }
+
+            $dialogConfirm('Add Record?', 'Confirm Transaction')
+                .then(function () {
+                    spinnerService.show('spinner1');
+                    countriesSvc
+                        .AddItem(ctrl.country)
+                        .then(function (res) {
+                            ctrl.countries = res;
+                            UtilService.showSuccessMessage('#notification-area', 'Record added successfully!');
+                            $location.path("/listAdminCountries");
+                        })
+                        .catch(function (error) {
+                            UtilService.showErrorMessage('#notification-area', error);
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
+                });
+        };
+
+        ctrl.DeleteRecord = function (id) {
+            $dialogConfirm('Delete Record?', 'Confirm Transaction')
+                .then(function () {
+                    spinnerService.show('spinner1');
+                    countriesSvc
+                        .DeleteItem(id)
+                        .then(function (res) {
+                            ctrl.countries = res;
+                            UtilService.showSuccessMessage('#notification-area', 'Record deleted successfully!');
+                        })
+                        .catch(function (error) {
+                            UtilService.showErrorMessage('#notification-area', error);
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        })
+                });
+        };
     }
 })();
