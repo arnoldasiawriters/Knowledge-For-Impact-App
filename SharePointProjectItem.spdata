@@ -49,5 +49,9 @@
     <ProjectItemFile Source="src\common\directives\add-btn\add-btn.tpl.html" Target="src\common\directives\add-btn\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\people-picker\sp-peoplepicker.min.css" Target="src\common\people-picker\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\people-picker\sp-peoplepicker.min.js" Target="src\common\people-picker\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\reach-tbl-headers\tbl-header.dir.js" Target="src\common\directives\reach-tbl-headers\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\reach-tbl-headers\tbl-header.tpl.html" Target="src\common\directives\reach-tbl-headers\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.dir.js" Target="src\common\directives\reach-tbl-headers-cols\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.tpl.html" Target="src\common\directives\reach-tbl-headers-cols\" Type="ElementFile" />
   </Files>
 </ProjectItem>

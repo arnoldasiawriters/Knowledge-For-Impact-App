@@ -78,6 +78,10 @@
     <Content Include="src\common\directives\back-btn\back-btn.tpl.html" />
     <Content Include="src\common\directives\pagination\dirPagination.js" />
     <Content Include="src\common\directives\pagination\dirPagination.tpl.html" />
+    <Content Include="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.dir.js" />
+    <Content Include="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.tpl.html" />
+    <Content Include="src\common\directives\reach-tbl-headers\tbl-header.dir.js" />
+    <Content Include="src\common\directives\reach-tbl-headers\tbl-header.tpl.html" />
     <Content Include="src\common\directives\spinner\loading-spinner.css" />
     <Content Include="src\common\directives\spinner\loading-spinner.js" />
     <Content Include="src\common\directives\ui-bootstrap-dialogs.js" />

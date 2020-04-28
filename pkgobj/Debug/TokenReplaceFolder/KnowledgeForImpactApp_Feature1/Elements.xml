@@ -48,5 +48,9 @@
     <File Path="src\common\directives\add-btn\add-btn.tpl.html" Url="src/common/directives/add-btn/add-btn.tpl.html" ReplaceContent="TRUE" />
     <File Path="src\common\people-picker\sp-peoplepicker.min.css" Url="src/common/people-picker/sp-peoplepicker.min.css" ReplaceContent="TRUE" />
     <File Path="src\common\people-picker\sp-peoplepicker.min.js" Url="src/common/people-picker/sp-peoplepicker.min.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\reach-tbl-headers\tbl-header.dir.js" Url="src/common/directives/reach-tbl-headers/tbl-header.dir.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\reach-tbl-headers\tbl-header.tpl.html" Url="src/common/directives/reach-tbl-headers/tbl-header.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.dir.js" Url="src/common/directives/reach-tbl-headers-cols/tbl-header-cols.dir.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.tpl.html" Url="src/common/directives/reach-tbl-headers-cols/tbl-header-cols.tpl.html" ReplaceContent="TRUE" />
   </Module>
 </Elements>

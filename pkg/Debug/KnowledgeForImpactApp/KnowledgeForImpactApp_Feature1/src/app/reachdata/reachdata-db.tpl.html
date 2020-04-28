@@ -2,7 +2,7 @@
     <div class="col-md-3 page-font">
         <i class="fa fa-balance-scale "></i> Scale and Reach Details
     </div>
-    <div class="col-md-2">        
+    <div class="col-md-2">
         <a ng-href="{{ctrl.hostWebUrl}}" class="btn btn-sm btn-warning">
             <i class="fa fa-angle-double-left"></i>
             Go Back to Team Site
@@ -36,8 +36,8 @@
             <div class="form-group">
                 <!--<label class="control-label">Emergency Country</label>
                 <input type="text" value="Kenya" ng-hide="ctrl.action == 'add'" disabled="disabled">-->
-                <select ng-model="ctrl.reachdata.financialyear"
-                        ng-options="x.title for x in ctrl.financialyears track by x.id"
+                <select ng-model="ctrl.reachdata.year"
+                        ng-options="x.title for x in ctrl.years track by x.id"
                         class="select form-control"
                         ng-change="ctrl.SelectQuarter()">
                     <option value="" class="" selected="selected">-- Select Financial Year --</option>
@@ -59,7 +59,7 @@
             </select>
         </div>
         <div class="col-md-3">
-            <button class="btn btn-sm btn-success form-control" ng-click="ctrl.SearchReachData()" type="button">
+            <button class="btn btn-sm btn-success form-control" ng-click="ctrl.SearchReachData()" type="button" ng-disabled="!ctrl.reachdata.quarter || !ctrl.reachdata.year">
                 <i class="fa fa-spinner"></i>
                 Load
             </button>
@@ -101,7 +101,7 @@
 
 <div class="row">
     <div class="col-md-3">
-        <a href="#listReachData/0">
+        <div ng-click="ctrl.getReachData(1)" class="dbSummary">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
@@ -109,17 +109,17 @@
                             <i class="glyphicon glyphicon-align-justify gi-3X"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge ng-binding">{{ctrl.submitted}}</div>
-                            <div>Total Submitted</div>
+                            <div class="huge ng-binding">{{ctrl.totalprojects}}</div>
+                            <div>Total Projects</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 
-    <div class="col-md-3">
-        <a href="#listReachData/1">
+    <div class="col-md-2">
+        <div ng-click="ctrl.getReachData(2)" class="dbSummary">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
@@ -128,16 +128,34 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge ng-binding">{{ctrl.pending}}</div>
-                            <div>Total Pending</div>
+                            <div>Pending Submission</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 
-    <div class="col-md-3">
-        <a href="#listReachData/2">
+    <div class="col-md-2">
+        <div ng-click="ctrl.getReachData(3)" class="dbSummary">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-time gi-3X"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge ng-binding">{{ctrl.submitted}}</div>
+                            <div>Total Submitted</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div ng-click="ctrl.getReachData(4)" class="dbSummary">
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <div class="row">
@@ -151,11 +169,11 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 
     <div class="col-md-3">
-        <a href="#listReachData/3">
+        <div ng-click="ctrl.getReachData(5)" class="dbSummary">
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <div class="row">
@@ -169,7 +187,7 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 </div>
 
@@ -188,14 +206,18 @@
                     <th style="width: 110px"></th>
                 </tr>
 
-                <tr dir-paginate="reachdata in ctrl.reachdatas | orderBy: '-financialyear' | orderBy: '-quarter' | itemsPerPage: 6">
-                    <td><span>{{reachdata.financialyear | date: 'dd/MM/yyyy HH:mm:ss' : 'africa/nairobi'}}</span></td>
+                <tr dir-paginate="reachdata in ctrl.reachdatas | orderBy: '-year' | orderBy: '-quarter' | itemsPerPage: 6">
+                    <td><span>{{reachdata.year.title}}</span></td>
                     <td><span>{{reachdata.quarter}}</span></td>
-                    <td><span>{{reachdata.programme}}</span></td>
-                    <td><span>{{reachdata.project}}</span></td>
-                    <td><span>{{reachdata.country}}</span></td>
-                    <td><span>{{reachdata.meperson}}</span></td>
-                    <td><span>{{reachdata.status}}</span></td>
+                    <td><span>{{reachdata.programme.title}}</span></td>
+                    <td><span>{{reachdata.title}}</span></td>
+                    <td><span>{{reachdata.country.title}}</span></td>
+                    <td>
+                        <div ng-repeat="person in reachdata.meperson">
+                            <span>{{person.title}}</span>
+                        </div>
+                    </td>
+                    <td><span>{{reachdata.submitted}}</span></td>
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-xs btn-warning dropdown-toggle" type="button" data-toggle="dropdown">

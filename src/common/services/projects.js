@@ -29,7 +29,7 @@
                         project.country = _.isNil(o.Country) ? '' : { id: o.Country.Id, title: o.Country.Title };
                         project.mereport = o.MEReport;
                         project.meperson = [];
-                        if (o.MEPerson.results.length > 0) {
+                        if (o.MEPerson.results) {
                             _.forEach(o.MEPerson.results, function (p) {
                                 var person = {};
                                 person.id = p.Id;
@@ -47,6 +47,24 @@
             return defer.promise;
         };
 
+        svc.getAllItemFilterMEReport = function (filter, programme) {
+            var defer = $q.defer();
+            svc
+                .getAllItems()
+                .then(function (medatas) {
+                    if (programme) {
+                        defer.resolve(_.filter(medatas, function (p) { return p.mereport == filter && p.programme.id == programme.id; }));
+                    } else {
+                        defer.resolve(_.filter(medatas, ['mereport', filter]));
+                    }                    
+                })
+                .catch(function (error) {
+                    defer.reject(error);
+                });
+
+            return defer.promise;
+        };
+
         svc.AddItem = function (project) {
             var defer = $q.defer();
             svc
@@ -61,37 +79,46 @@
                     } else {
                         var mepersonids = [];
                         _.forEach(project.meperson, function (value, key) {
-                            mepersonids.push(SP.FieldUserValue.fromUser(value.Login));
+                            mepersonids.push(ShptRestService.ensureUser(value.Login));
                         });
 
-                        var mereport = "";
-                        if (project.mereport == "Yes") {
-                            mereport = "1";
-                        } else if (project.mereport == "No") {
-                            mereport = "0";
-                        } else {
-                            mereport = null;
-                        }
+                        $q
+                            .all(mepersonids)
+                            .then(function (data) {
+                                var meidstosave = [];
+                                _.forEach(data, function (dt) {
+                                    meidstosave.push(dt.Id);
+                                });
+                                var mereport = true;
+                                if (project.mereport == "No") {
+                                    mereport = false;
+                                }
 
-                        var data = {
-                            Title: project.title,
-                            Code: project.code,
-                            GlobalProgrammeId: project.programme.id,
-                            CountryId: project.country.id,
-                            MEPerson: mepersonids,
-                            MEReport: mereport
-                        };
+                                var data = {
+                                    Title: project.title,
+                                    Code: project.code,
+                                    GlobalProgrammeId: project.programme.id,
+                                    CountryId: project.country.id,
+                                    MEPersonId: { "results": meidstosave },
+                                    MEReport: mereport
+                                };
 
-                        ShptRestService
-                            .createNewListItem(listname, data)
-                            .then(function (response) {
-                                project.id = response.ID;
-                                projectsList.push(project);
-                                defer.resolve(projectsList);
+                                ShptRestService
+                                    .createNewListItem(listname, data)
+                                    .then(function (response) {
+                                        project.id = response.ID;
+                                        projectsList.push(project);
+                                        defer.resolve(projectsList);
+                                    })
+                                    .catch(function (error) {
+                                        console.log(error);
+                                        defer.reject("An error occured while adding the item. Contact IT Service desk for support.");
+                                    });
+
                             })
                             .catch(function (error) {
+                                defer.reject("An error occured while getting the User Ids. Contact IT Service desk for support.");
                                 console.log(error);
-                                defer.reject("An error occured while adding the item. Contact IT Service desk for support.");
                             });
                     }
                 })

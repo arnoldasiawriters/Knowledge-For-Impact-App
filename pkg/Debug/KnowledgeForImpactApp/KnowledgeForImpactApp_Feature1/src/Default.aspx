@@ -50,6 +50,8 @@
     <script type="text/javascript" src="common/directives/add-btn/add-btn.dir.js"></script>
     <script type="text/javascript" src="common/directives/back-btn/back-btn.dir.js"></script>
     <script type="text/javascript" src="common/people-picker/sp-peoplepicker.min.js"></script>
+    <script type="text/javascript" src="common/directives/reach-tbl-headers/tbl-header.dir.js"></script>
+    <script type="text/javascript" src="common/directives/reach-tbl-headers-cols/tbl-header-cols.dir.js"></script>
 
     <!--Controllers-->
     <script type="text/javascript" src="app/adm-financialyears/financialyears.js"></script>

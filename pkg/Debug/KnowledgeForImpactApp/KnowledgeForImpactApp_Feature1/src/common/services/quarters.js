@@ -44,7 +44,7 @@
             svc
                 .getAllItems()
                 .then(function (response) {
-                    defer.resolve(_.filter(response, ['year', year]));
+                    defer.resolve(_.filter(response, function (o) { return o.year.id == year.id; }));
                 })
                 .catch(function (error) {
                     defer.reject("An error occured while retrieving the items. Contact IT Service desk for support.");

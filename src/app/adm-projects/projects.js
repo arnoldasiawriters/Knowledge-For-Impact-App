@@ -57,26 +57,26 @@
                         .finally(function () {
                             spinnerService.closeAll();
                         });
-                });
+                });           
+        };
 
-            ctrl.DeleteRecord = function (id) {
-                $dialogConfirm('Delete Record?', 'Confirm Transaction')
-                    .then(function () {
-                        spinnerService.show('spinner1');
-                        projectsSvc
-                            .DeleteItem(id)
-                            .then(function (res) {
-                                ctrl.projects = res;
-                                UtilService.showSuccessMessage('#notification-area', 'Record deleted successfully!');
-                            })
-                            .catch(function (error) {
-                                UtilService.showErrorMessage('#notification-area', error);
-                            })
-                            .finally(function () {
-                                spinnerService.closeAll();
-                            })
-                    });
-            };
+        ctrl.DeleteRecord = function (id) {
+            $dialogConfirm('Delete Record?', 'Confirm Transaction')
+                .then(function () {
+                    spinnerService.show('spinner1');
+                    projectsSvc
+                        .DeleteItem(id)
+                        .then(function (res) {
+                            ctrl.projects = res;
+                            UtilService.showSuccessMessage('#notification-area', 'Record deleted successfully!');
+                        })
+                        .catch(function (error) {
+                            UtilService.showErrorMessage('#notification-area', error);
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        })
+                });
         };
     }
 })();

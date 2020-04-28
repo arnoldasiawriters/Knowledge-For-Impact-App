@@ -63,6 +63,10 @@
     <ElementFile Location="src\common\directives\add-btn\add-btn.tpl.html" />
     <ElementFile Location="src\common\people-picker\sp-peoplepicker.min.css" />
     <ElementFile Location="src\common\people-picker\sp-peoplepicker.min.js" />
+    <ElementFile Location="src\common\directives\reach-tbl-headers\tbl-header.dir.js" />
+    <ElementFile Location="src\common\directives\reach-tbl-headers\tbl-header.tpl.html" />
+    <ElementFile Location="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.dir.js" />
+    <ElementFile Location="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.tpl.html" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

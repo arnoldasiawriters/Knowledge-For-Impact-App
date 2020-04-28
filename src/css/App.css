@@ -104,3 +104,7 @@
 .button-active {
     background-color: #227b95 !important;
 }
+
+.dbSummary {
+    cursor: pointer;
+}
