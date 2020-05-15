@@ -28,4 +28,14 @@ function initializePage()
     function onGetUserNameFail(sender, args) {
         alert('Failed to get user name. Error:' + args.get_message());
     }
+
+    $(document).ready(function () {
+        $('.btnNext').click(function () {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+
+        $('.btnPrevious').click(function () {
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+    });
 }

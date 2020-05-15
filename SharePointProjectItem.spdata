@@ -53,5 +53,7 @@
     <ProjectItemFile Source="src\common\directives\reach-tbl-headers\tbl-header.tpl.html" Target="src\common\directives\reach-tbl-headers\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.dir.js" Target="src\common\directives\reach-tbl-headers-cols\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.tpl.html" Target="src\common\directives\reach-tbl-headers-cols\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\reachdata\reachdata-plan.tpl.html" Target="src\app\reachdata\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\reachdata\reachdata-plan.js" Target="src\app\reachdata\" Type="ElementFile" />
   </Files>
 </ProjectItem>

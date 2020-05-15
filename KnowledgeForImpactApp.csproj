@@ -67,6 +67,8 @@
     <Content Include="src\app\adm-quarters\quarters-list.tpl.html" />
     <Content Include="src\app\adm-quarters\quarters.js" />
     <Content Include="src\app\App.js" />
+    <Content Include="src\app\reachdata\reachdata-plan.js" />
+    <Content Include="src\app\reachdata\reachdata-plan.tpl.html" />
     <Content Include="src\app\reachdata\reachdata-add.tpl.html" />
     <Content Include="src\app\reachdata\reachdata-db.tpl.html" />
     <Content Include="src\app\reachdata\reachdata.js" />

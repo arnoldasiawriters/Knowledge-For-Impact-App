@@ -5,7 +5,7 @@
         .module('app', ['ngRoute', 'directives.dirPagination', 'ui.bootstrap', 'ui.bootstrap.dialogs', 'services.utilities', 'spNgModule', 'sarsha.spinner',
             'services.reachdata', 'services.years', 'services.programmes', 'services.quarters', 'services.countries', 'services.grants',
             'services.projects', 'dir.adminmenu', 'dir.backbtn', 'dir.addbtn', 'dir.tbl-headers', 'dir.tbl-headers-cols', 'financialyears', 'countries', 'grants', 'programmes',
-            'projects', 'quarters', 'reachdata', 'sp-peoplepicker'])
+            'projects', 'quarters', 'reachdata-plan', 'reachdata', 'sp-peoplepicker'])
         .constant("IS_APP_WEB", false)
         .config(['$routeProvider', function ($routeprovider) {
             $routeprovider
@@ -17,6 +17,11 @@
                 .when('/addReachDatas', {
                     templateUrl: 'app/reachdata/reachdata-add.tpl.html',
                     controller: 'reachDataCtrl as ctrl',
+                    param: 'add'
+                })
+                .when('/planReachDatas', {
+                    templateUrl: 'app/reachdata/reachdata-plan.tpl.html',
+                    controller: 'reachDataPlanCtrl as ctrl',
                     param: 'add'
                 })
                 .when('/listReachData/:id', {

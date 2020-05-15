@@ -67,6 +67,8 @@
     <ElementFile Location="src\common\directives\reach-tbl-headers\tbl-header.tpl.html" />
     <ElementFile Location="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.dir.js" />
     <ElementFile Location="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.tpl.html" />
+    <ElementFile Location="src\app\reachdata\reachdata-plan.tpl.html" />
+    <ElementFile Location="src\app\reachdata\reachdata-plan.js" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

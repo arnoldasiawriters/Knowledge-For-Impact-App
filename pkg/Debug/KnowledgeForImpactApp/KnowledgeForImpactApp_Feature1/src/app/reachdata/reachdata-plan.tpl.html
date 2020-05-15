@@ -1,0 +1,242 @@
+﻿<div class="bootstrap-iso ng-scope">
+    <div class="well ">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-left">
+                    <a href="#listReachData" class="btn btn-sm btn-success">
+                        <i class="fa fa-angle-double-left"></i>
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#totalreach" target="_self">Plan Total Reach</a></li>
+        <li><a data-toggle="tab" href="#newreach" target="_self">Plan New Reach</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="totalreach" class="tab-pane fade in active">
+            <div class="panel panel-info">
+                <div class="panel-heading pnl-heading">PLAN TOTAL REACH DATA FOR A FINANCIAL YEAR</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well ">
+                                <div class="clearfix">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Financial Year:</label>
+                                            <select ng-model="ctrl.reachdata.year"
+                                                    ng-options="x.title for x in ctrl.years track by x.id"
+                                                    class="select form-control">
+                                                <option value="" class="" selected="selected">-- Select Financial Year --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Country:</label>
+                                            <select ng-model="ctrl.reachdata.country"
+                                                    ng-options="x.title for x in ctrl.countries track by x.id"
+                                                    class="select form-control">
+                                                <option value="" class="" selected="selected">-- Select Country --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Grant Code:</label>
+                                            <select ng-model="ctrl.reachdata.grant"
+                                                    ng-options="x.title for x in ctrl.grants track by x.id"
+                                                    class="select form-control">
+                                                <option value="" class="" selected="selected">-- Select Grant Code --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Global Programmes & OR Initiatives:</label>
+                                            <select ng-model="ctrl.reachdata.programme"
+                                                    ng-options="x.title for x in ctrl.programmes track by x.id"
+                                                    class="select form-control">
+                                                <option value="" class="" selected="selected">-- Select Practice Areas --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">Project Code:</label>
+                                            <select ng-model="ctrl.reachdata.project"
+                                                    ng-options="x.code for x in ctrl.projects track by x.id"
+                                                    class="select form-control"
+                                                    ng-change="ctrl.SelectProjectName()">
+                                                <option value="" class="" selected="selected">-- Project Code --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Project Name:</label>
+                                            <input class="form-control"
+                                                   type="text"
+                                                   name="title"
+                                                   ng-model="ctrl.reachdata.project.title"
+                                                   readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well ">
+                                <div class="clearfix">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Please enter in the tables below the Total number of people who you plan to reach through this project/grant in the Current Financial Year:
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" ng-repeat="table in ctrl.reachdata.tablesTotalReach">
+                                        <div class="form-group table-quarter">
+                                            <label class="control-label">{{table.name}}</label>
+                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
+                                                <tbody>
+                                                    <tr tbl-header-cols></tr>
+                                                    <tr tbl-header></tr>
+                                                    <tr ng-repeat="data in table.data">
+                                                        <td>{{data.age}}</td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.female" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.male" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.other" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.total" readonly /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdtotal" readonly /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label class="control-label">Note:</label>
+                                            <p>Please provide quarterly breakdown of people expected to be reached in the financial year.</p>
+                                            <p>Please provide as much disaggregation as possible on people's age, gender and disability status.</p>
+                                            <p>Use appropriate age groups as guided in the tables.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Please provide as much detail as possible on who is included within 'other' in the quarters.</label>
+                                            <textarea class="form-control"
+                                                      rows="7"
+                                                      ng-model="ctrl.reachdata.othersdetailtr"
+                                                      placeholder="It is mandatory to fill this section with explanations for any variances across quarters, PAs and demographics (age, sex, PWD).">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well ">
+                                <div class="clearfix">                                    
+                                    <a data-toggle="tab" href="#newreach" class="btn btn-info pull-right btnNext">Next to Plan New Reach >>></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="newreach" class="tab-pane fade">
+            <div class="panel panel-info">
+                <div class="panel-heading pnl-heading">PLAN NEW REACH DATA FOR A FINANCIAL YEAR</div>
+                <div class="panel-body">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Please enter in the tables below the NEW number of people planned to be reached through this project/grant in the Current financial year.:
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6" ng-repeat="table in  ctrl.reachdata.tablesNewReach">
+                                        <div class="form-group table-quarter">
+                                            <label class="control-label">{{table.name}}</label>
+                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
+                                                <tbody>
+                                                    <tr tbl-header-cols></tr>
+                                                    <tr tbl-header></tr>
+                                                    <tr ng-repeat="data in table.data">
+                                                        <td>{{data.age}}</td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.female" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.male" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.other" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.total" readonly /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdtotal" readonly /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label class="control-label">Note:</label>
+                                            <p>Please provide quarterly breakdown of NEW people expected to be reached in the financial year.</p>
+                                            <p>Please provide as much disaggregation as possible on people's age, gender and disability status.</p>
+                                            <p>Use appropriate age groups as guided in the tables.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Please provide as much detail as possible on who is included within 'other' in the quarters.</label>
+                                            <textarea class="form-control"
+                                                      rows="7"
+                                                      ng-model="ctrl.reachdata.othersdetailnr"
+                                                      placeholder="It is mandatory to fill this section with explanations for any variances across quarters, PAs and demographics (age, sex, PWD). ">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a data-toggle="tab" href="#totalreach" class="btn btn-info btnPrevious"><<< Back to Plan Total Reach</a>
+                                        <a href=""
+                                           class="btn btn-success pull-right"
+                                           ng-click="ctrl.submitReachDataPlan()">
+                                            <i class="fa fa-save"></i> Submit Reach Data Plan
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

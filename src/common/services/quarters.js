@@ -53,6 +53,20 @@
             return defer.promise;
         };
 
+        //svc.getItemByAbbr = function (abbr, year) {
+        //    var defer = $q.defer();
+        //    svc
+        //        .getAllItems()
+        //        .then(function (response) {
+        //            defer.resolve(_.find(response, function (o) { return o.year.id == year.id && o.abbr == abbr; }));
+        //        })
+        //        .catch(function (error) {
+        //            defer.reject("An error occured while retrieving the items. Contact IT Service desk for support.");
+        //            console.log(error);
+        //        });
+        //    return defer.promise;
+        //};
+
         svc.AddItem = function (quarter) {
             var defer = $q.defer();
             svc

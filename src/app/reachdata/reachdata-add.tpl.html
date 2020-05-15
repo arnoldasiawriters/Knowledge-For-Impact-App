@@ -14,9 +14,9 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#background" target="_self">Background Information</a></li>
-        <li><a data-toggle="tab" href="#totalreach" target="_self">Total Reach Data</a></li>
-        <li><a data-toggle="tab" href="#newreach" target="_self">New Reach Data</a></li>
+        <li><a data-toggle="tab" href="#reach" target="_self">Total Reach Data (Actual)</a></li>
         <li><a data-toggle="tab" href="#comms" target="_self">Communications</a></li>
+        <li><a data-toggle="tab" href="#support" target="_self">Supporting Documents</a></li>
     </ul>
 
     <div class="tab-content">
@@ -44,6 +44,7 @@
                                             <label class="control-label">Quarter:</label>
                                             <select ng-model="ctrl.reachdata.quarter"
                                                     ng-options="x.title for x in ctrl.quarters track by x.id"
+                                                    ng-change="ctrl.SetActiveQuarter()"
                                                     class="select form-control">
                                                 <option value="" class="" selected="selected">-- Select Quarter --</option>
                                             </select>
@@ -203,9 +204,9 @@
                 </div>
             </div>
         </div>
-        <div id="totalreach" class="tab-pane fade">
+        <div id="reach" class="tab-pane fade">
             <div class="panel panel-info">
-                <div class="panel-heading pnl-heading">ADD TOTAL REACH DATA</div>
+                <div class="panel-heading pnl-heading">ADD REACH DATA (ACTUALS)</div>
                 <div class="panel-body">
                     <div class="well">
                         <div class="row">
@@ -220,92 +221,23 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" ng-repeat="table in ctrl.tablesData">
                                         <div class="form-group table-quarter">
-                                            <label class="control-label">Quarter 1 (April-June):</label>
+                                            <label class="control-label">{{table.name}}</label>
                                             <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
                                                 <tbody>
                                                     <tr tbl-header-cols></tr>
                                                     <tr tbl-header></tr>
-                                                    <tr ng-repeat="data in ctrl.tbldataquarterone">
+                                                    <tr ng-repeat="data in table.data">
                                                         <td>{{data.age}}</td>
-                                                        <td><input type="text" class="form-control" ng-model="data.female" ng-change="ctrl.calculateTotal(1)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.male" ng-change="ctrl.calculateTotal(1)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.other" ng-change="ctrl.calculateTotal(1)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.total" readonly /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(1)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(1)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(1)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdtotal" readonly /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group table-quarter ">
-                                            <label class="control-label">Quarter 2 (Cummulative April-September):</label>
-                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
-                                                <tbody>
-                                                    <tr tbl-header-cols></tr>
-                                                    <tr tbl-header></tr>
-                                                    <tr ng-repeat="data in ctrl.tbldataquartertwo">
-                                                        <td>{{data.age}}</td>
-                                                        <td><input type="text" class="form-control" ng-model="data.female" ng-change="ctrl.calculateTotal(2)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.male" ng-change="ctrl.calculateTotal(2)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.other" ng-change="ctrl.calculateTotal(2)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.total" readonly /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(2)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(2)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(2)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdtotal" readonly /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group table-quarter ">
-                                            <label class="control-label">Quarter 3 (Cummulative April-December):</label>
-                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
-                                                <tbody>
-                                                    <tr tbl-header-cols></tr>
-                                                    <tr tbl-header></tr>
-                                                    <tr ng-repeat="data in ctrl.tbldataquarterthree">
-                                                        <td>{{data.age}}</td>
-                                                        <td><input type="text" class="form-control" ng-model="data.female" ng-change="ctrl.calculateTotal(3)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.male" ng-change="ctrl.calculateTotal(3)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.other" ng-change="ctrl.calculateTotal(3)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.total" readonly /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(3)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(3)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(3)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdtotal" readonly /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group table-quarter ">
-                                            <label class="control-label">Quarter 4 (Cummulative April-March): </label>
-                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
-                                                <tbody>
-                                                    <tr tbl-header-cols></tr>
-                                                    <tr tbl-header></tr>
-                                                    <tr ng-repeat="data in ctrl.tbldataquarterfour">
-                                                        <td>{{data.age}}</td>
-                                                        <td><input type="text" class="form-control" ng-model="data.female" ng-change="ctrl.calculateTotal(4)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.male" ng-change="ctrl.calculateTotal(4)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.other" ng-change="ctrl.calculateTotal(4)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.total" readonly /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(4)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(4)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(4)" /></td>
-                                                        <td><input type="text" class="form-control" ng-model="data.pwdtotal" readonly /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.female" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.male" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.other" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.total" readonly /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdtotal" readonly /></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -352,418 +284,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="newreach" class="tab-pane fade">
-            <div class="panel panel-info">
-                <div class="panel-heading pnl-heading">ADD NEW REACH DATA</div>
-                <div class="panel-body">
-                    <div class="well">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label">
-                                                Please in the  table below enter the new number of people who were reached through this project/grant in the Current financial year:
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group table-quarter">
-                                            <label class="control-label">Quarter 1 (April-June):</label>
-                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
-                                                <tbody>
-                                                    <tr>
-                                                        <th style="min-width: 50px;">Age</th>
-                                                        <th colspan="4">Total</th>
-                                                        <th colspan="4">PWD</th>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>Female</td>
-                                                        <td>Male</td>
-                                                        <td>Others</td>
-                                                        <td>Total</td>
-                                                        <td>Female</td>
-                                                        <td>Male</td>
-                                                        <td>Others</td>
-                                                        <td>Total</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>0-5</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>6-18</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>19-35</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>36-60</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>60+</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group table-quarter ">
-                                            <label class="control-label">Quarter 2 (Cummulative April-September):</label>
-                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
-                                                <tbody>
-                                                    <tr>
-                                                        <th style="min-width: 50px;">Age</th>
-                                                        <th colspan="4">Total</th>
-                                                        <th colspan="4">PWD</th>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>Female</td>
-                                                        <td>Male</td>
-                                                        <td>Others</td>
-                                                        <td>Total</td>
-                                                        <td>Female</td>
-                                                        <td>Male</td>
-                                                        <td>Others</td>
-                                                        <td>Total</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>0-5</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>6-18</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>19-35</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>36-60</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>60+</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group table-quarter ">
-                                            <label class="control-label">Quarter 3 (Cummulative April-December):</label>
-                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
-                                                <tbody>
-                                                    <tr>
-                                                        <th style="min-width: 50px;">Age</th>
-                                                        <th colspan="4">Total</th>
-                                                        <th colspan="4">PWD</th>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>Female</td>
-                                                        <td>Male</td>
-                                                        <td>Others</td>
-                                                        <td>Total</td>
-                                                        <td>Female</td>
-                                                        <td>Male</td>
-                                                        <td>Others</td>
-                                                        <td>Total</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>0-5</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>6-18</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>19-35</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>36-60</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>60+</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group table-quarter ">
-                                            <label class="control-label">Quarter 4 (Cummulative April-March): </label>
-                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
-                                                <tbody>
-                                                    <tr>
-                                                        <th style="min-width: 50px;">Age</th>
-                                                        <th colspan="4">Total</th>
-                                                        <th colspan="4">PWD</th>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>Female</td>
-                                                        <td>Male</td>
-                                                        <td>Others</td>
-                                                        <td>Total</td>
-                                                        <td>Female</td>
-                                                        <td>Male</td>
-                                                        <td>Others</td>
-                                                        <td>Total</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>0-5</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>6-18</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>19-35</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>36-60</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>60+</td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" class="form-control" /></td>
-                                                        <td><input type="text" readonly class="form-control" /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label">Note:</label>
-                                            <p>Please provide quarterly breakdown of people expected to be reached in the financial year.</p>
-                                            <p>Please enter actual data for Current Quarter and forecast data for all other quarters.</p>
-                                            <p>For each quarter, please provide total number of people reached to that point in the year (e.g. for Quarter 2, this will be total number of people reached from April to September, inclusive of Quarter 1).</p>
-                                            <p>For quarters already completed, please input actual data.</p>
-                                            <p>For quarters still to come, please enter forecast data.</p>
-                                            <p>Please provide as much disaggregation as possible on people's age, gender and disability status.</p>
-                                            <p>Use appropriate age groups as guided in the tables.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label">Please provide as much detail as possible on who is included within 'other' in the current quarter.</label>
-                                            <textarea class="form-control"
-                                                      rows="10"
-                                                      ng-model="ctrl.emergency.specificgroups"
-                                                      placeholder="It is mandatory to fill this section with explanations for any variances across quarters, PAs and demographics (age, sex, PWD). ">
-                                            </textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <a href="#" class="btn btn-warning"><< Back to New Reach Data</a>
-                                        <a href="#" class="btn btn-success pull-right" ng-click="ctrl.addRecord()">Save/Update Data</a>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <a href="#" class="btn btn-success pull-right">Next to Communications >></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div id="comms" class="tab-pane fade">
             <div class="well">
                 <div class="row">
@@ -860,6 +380,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="support" class="tab-pane fade">
+            <div>
+
             </div>
         </div>
     </div>

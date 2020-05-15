@@ -60,7 +60,7 @@
     <script type="text/javascript" src="app/adm-countries/countries.js"></script>
     <script type="text/javascript" src="app/adm-programmes/programmes.js"></script>
     <script type="text/javascript" src="app/adm-projects/projects.js"></script>
-
+    <script type="text/javascript" src="app/reachdata/reachdata-plan.js"></script>
     <script type="text/javascript" src="app/reachdata/reachdata.js"></script>
 
     <script type="text/javascript" src="app/App.js"></script>
@@ -90,4 +90,5 @@
             </div>
         </div>
     </div>
+    <script type="text/jscript" src="../Scripts/App.js"></script>
 </asp:Content>

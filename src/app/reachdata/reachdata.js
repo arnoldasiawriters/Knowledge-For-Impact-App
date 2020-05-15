@@ -9,7 +9,7 @@
     function ReachDataCtrl($q, $location, $routeParams, $route, reachdatasvc, YearsSvc, programmesSvc, quartersSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService) {
         var ctrl = this;
         ctrl.userid = _spPageContextInfo.userId;
-        ctrl.title = "Add Scale & Reach Data";
+        ctrl.title = "Plan Scale & Reach Data";
         ctrl.action = $route.current.$$route.param;
         ctrl.hostWebUrl = reachdatasvc.hostWebUrl;
         ctrl.reachdata = {};
@@ -24,11 +24,14 @@
         spinnerService.show('spinner1');
 
         if (ctrl.action == "add") {
-            ctrl.tblheaders = reachdatasvc.getTableDetails(true);
-            ctrl.tbldataquarterone = reachdatasvc.getTableDetails(false);
-            ctrl.tbldataquartertwo = reachdatasvc.getTableDetails(false);
-            ctrl.tbldataquarterthree = reachdatasvc.getTableDetails(false);
-            ctrl.tbldataquarterfour = reachdatasvc.getTableDetails(false);
+            ctrl.tablesDataPlanned = [];
+            ctrl.tablesDataPlanned.push({ id: 0, name: "Quarter 1 (April-June)", data: reachdatasvc.setTableDetails() });
+            ctrl.tablesDataPlanned.push({ id: 1, name: "Quarter 2 (July-September)", data: reachdatasvc.setTableDetails() });
+            ctrl.tablesDataPlanned.push({ id: 2, name: "Quarter 3 (October-December)", data: reachdatasvc.setTableDetails() });
+            ctrl.tablesDataPlanned.push({ id: 3, name: "Quarter 4 (January-March)", data: reachdatasvc.setTableDetails() });
+
+            ctrl.tablesData = [];
+            ctrl.tablesData.push({ id: 0, name: "Quarter 1 (April-June)", data: reachdatasvc.setTableDetails() });
         }
 
         var promises = [];
@@ -58,7 +61,7 @@
                 quartersSvc
                     .getAllItemsYear(ctrl.reachdata.year)
                     .then(function (res) {
-                        ctrl.quarters = res;
+                        ctrl.quarters = res;                        
                     })
                     .catch(function (error) {
                         console.log('An Error Occured!', error);
@@ -113,33 +116,52 @@
                     ctrl.reachdatas = _.filter(ctrl.reachdatas, ['status', 'Approved']);
                     break;
                 default:
-                    ctrl.reachdatas = ctrl.reachdatas;            
+                    ctrl.reachdatas = ctrl.reachdatas;
             }
             spinnerService.closeAll();
         };
 
-        ctrl.calculateTotal = function (quarter) {
-            if (quarter == 1) {
-                _.forEach(ctrl.tbldataquarterone, function (t) {
-                    t.total = parseInt(t.female) + parseInt(t.male) + parseInt(t.other);
-                    t.pwdtotal = parseInt(t.pwdfemale) + parseInt(t.pwdmale) + parseInt(t.pwdother);
-                });
-            } else if (quarter == 2) {
-                _.forEach(ctrl.tbldataquartertwo, function (t) {
-                    t.total = parseInt(t.female) + parseInt(t.male) + parseInt(t.other);
-                    t.pwdtotal = parseInt(t.pwdfemale) + parseInt(t.pwdmale) + parseInt(t.pwdother);
-                });
-            } else if (quarter == 3) {
-                _.forEach(ctrl.tbldataquarterthree, function (t) {
-                    t.total = parseInt(t.female) + parseInt(t.male) + parseInt(t.other);
-                    t.pwdtotal = parseInt(t.pwdfemale) + parseInt(t.pwdmale) + parseInt(t.pwdother);
-                });
-            } else if (quarter == 4) {
-                _.forEach(ctrl.tbldataquarterfour, function (t) {
-                    t.total = parseInt(t.female) + parseInt(t.male) + parseInt(t.other);
-                    t.pwdtotal = parseInt(t.pwdfemale) + parseInt(t.pwdmale) + parseInt(t.pwdother);
-                });
+        ctrl.calculateTotal = function (data) {
+            var female = 0;
+            var male = 0;
+            var other = 0;
+            var pwdfemale = 0;
+            var pwdmale = 0;
+            var pwdother = 0;
+
+            female = _.isNaN(parseInt(data.female)) ? 0 : parseInt(data.female);
+            male = _.isNaN(parseInt(data.male)) ? 0 : parseInt(data.male);
+            other = _.isNaN(parseInt(data.other)) ? 0 : parseInt(data.other);
+
+            pwdfemale = _.isNaN(parseInt(data.pwdfemale)) ? 0 : parseInt(data.pwdfemale);
+            pwdmale = _.isNaN(parseInt(data.pwdmale)) ? 0 : parseInt(data.pwdmale);
+            pwdother = _.isNaN(parseInt(data.pwdother)) ? 0 : parseInt(data.pwdother);
+
+            data.total = female + male + other;
+            data.pwdtotal = pwdfemale + pwdmale + pwdother;
+        };
+       
+        ctrl.SetActiveQuarter = function () {
+            var curData = [];
+            if (ctrl.reachdata.quarter.abbr == "Q1") {
+                curData = ctrl.tablesData[0];
+            } else if (ctrl.reachdata.quarter.abbr == "Q2") {
+                curData = ctrl.tablesData[1];
+            } else if (ctrl.reachdata.quarter.abbr == "Q3") {
+                curData = ctrl.tablesData[2];
+            } else if (ctrl.reachdata.quarter.abbr == "Q4") {
+                curData = ctrl.tablesData[3];
             }
+
+            _.forEach(ctrl.tablesData, function (tdata) {
+                _.forEach(tdata.data, function (td) {
+                    td.disabled = true;
+                });
+            });
+
+            _.forEach(curData.data, function (td) {
+                td.disabled = false;
+            });            
         };
 
         ctrl.addRecord = function () {
