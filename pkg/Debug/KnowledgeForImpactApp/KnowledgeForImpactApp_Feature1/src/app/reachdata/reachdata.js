@@ -15,6 +15,8 @@
         ctrl.reachdata = {};
         ctrl.reachdatas = [];
         ctrl.filterEmergencies = [];
+        ctrl.tablesDataTR = [];
+        ctrl.tablesDataNR = [];
         ctrl.totalprojects = 0;
         ctrl.submitted = 0;
         ctrl.pending = 0;
@@ -23,15 +25,9 @@
 
         spinnerService.show('spinner1');
 
-        if (ctrl.action == "add") {
-            ctrl.tablesDataPlanned = [];
-            ctrl.tablesDataPlanned.push({ id: 0, name: "Quarter 1 (April-June)", data: reachdatasvc.setTableDetails() });
-            ctrl.tablesDataPlanned.push({ id: 1, name: "Quarter 2 (July-September)", data: reachdatasvc.setTableDetails() });
-            ctrl.tablesDataPlanned.push({ id: 2, name: "Quarter 3 (October-December)", data: reachdatasvc.setTableDetails() });
-            ctrl.tablesDataPlanned.push({ id: 3, name: "Quarter 4 (January-March)", data: reachdatasvc.setTableDetails() });
-
-            ctrl.tablesData = [];
-            ctrl.tablesData.push({ id: 0, name: "Quarter 1 (April-June)", data: reachdatasvc.setTableDetails() });
+        if (ctrl.action == "add") {            
+            ctrl.tablesDataTR.push(reachdatasvc.setTableDetails());
+            ctrl.tablesDataNR.push(reachdatasvc.setTableDetails());
         }
 
         var promises = [];
@@ -48,6 +44,10 @@
                 ctrl.countries = results[2];
                 ctrl.grants = results[3];
                 ctrl.projects = results[4];
+
+                //ctrl.reachdata.year = _.find(ctrl.years, ['title', '2019-2020']);
+                //ctrl.SelectQuarter();               
+
                 spinnerService.closeAll();
             })
             .catch(function (error) {
@@ -61,7 +61,9 @@
                 quartersSvc
                     .getAllItemsYear(ctrl.reachdata.year)
                     .then(function (res) {
-                        ctrl.quarters = res;                        
+                        ctrl.quarters = res;
+                        //ctrl.reachdata.quarter = _.find(ctrl.quarters, ['abbr', 'Q1']);
+                        //ctrl.SearchReachData();
                     })
                     .catch(function (error) {
                         console.log('An Error Occured!', error);
@@ -140,29 +142,29 @@
             data.total = female + male + other;
             data.pwdtotal = pwdfemale + pwdmale + pwdother;
         };
-       
-        ctrl.SetActiveQuarter = function () {
-            var curData = [];
-            if (ctrl.reachdata.quarter.abbr == "Q1") {
-                curData = ctrl.tablesData[0];
-            } else if (ctrl.reachdata.quarter.abbr == "Q2") {
-                curData = ctrl.tablesData[1];
-            } else if (ctrl.reachdata.quarter.abbr == "Q3") {
-                curData = ctrl.tablesData[2];
-            } else if (ctrl.reachdata.quarter.abbr == "Q4") {
-                curData = ctrl.tablesData[3];
-            }
 
-            _.forEach(ctrl.tablesData, function (tdata) {
-                _.forEach(tdata.data, function (td) {
-                    td.disabled = true;
-                });
-            });
+        //ctrl.SetActiveQuarter = function () {
+        //    var curData = [];
+        //    if (ctrl.reachdata.quarter.abbr == "Q1") {
+        //        curData = ctrl.tablesData[0];
+        //    } else if (ctrl.reachdata.quarter.abbr == "Q2") {
+        //        curData = ctrl.tablesData[1];
+        //    } else if (ctrl.reachdata.quarter.abbr == "Q3") {
+        //        curData = ctrl.tablesData[2];
+        //    } else if (ctrl.reachdata.quarter.abbr == "Q4") {
+        //        curData = ctrl.tablesData[3];
+        //    }
 
-            _.forEach(curData.data, function (td) {
-                td.disabled = false;
-            });            
-        };
+        //    _.forEach(ctrl.tablesData, function (tdata) {
+        //        _.forEach(tdata.data, function (td) {
+        //            td.disabled = true;
+        //        });
+        //    });
+
+        //    _.forEach(curData.data, function (td) {
+        //        td.disabled = false;
+        //    });
+        //};
 
         ctrl.addRecord = function () {
 

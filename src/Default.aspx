@@ -60,6 +60,7 @@
     <script type="text/javascript" src="app/adm-countries/countries.js"></script>
     <script type="text/javascript" src="app/adm-programmes/programmes.js"></script>
     <script type="text/javascript" src="app/adm-projects/projects.js"></script>
+    <script type="text/javascript" src="app/reachdata/reachdata-add.js"></script>
     <script type="text/javascript" src="app/reachdata/reachdata-plan.js"></script>
     <script type="text/javascript" src="app/reachdata/reachdata.js"></script>
 
@@ -81,7 +82,7 @@
                         <div id="notification-area"></div>
                         <div class="panel panel-warning">
                             <div class="panel-heading pnl-heading">SCALE AND REACH APPLICATION</div>
-                            <div class="panel-body" ng-view></div>
+                            <div class="panel-body" ng-view autoscroll></div>
                             <div class="panel-footer clearfix"><span class="pull-right">© 2020 VSO International, Knowledge For Impact Team</span></div>
                             <sarsha-spinner name="spinner1"></sarsha-spinner>
                         </div>
@@ -90,5 +91,4 @@
             </div>
         </div>
     </div>
-    <script type="text/jscript" src="../Scripts/App.js"></script>
 </asp:Content>

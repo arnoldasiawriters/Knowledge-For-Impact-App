@@ -1,4 +1,4 @@
-﻿<div class="bootstrap-iso ng-scope">
+﻿<div class="bootstrap-iso ng-scope" id="planReachData">
     <div class="well ">
         <div class="row">
             <div class="col-md-12">
@@ -71,8 +71,7 @@
                                             <label class="control-label">Project Code:</label>
                                             <select ng-model="ctrl.reachdata.project"
                                                     ng-options="x.code for x in ctrl.projects track by x.id"
-                                                    class="select form-control"
-                                                    ng-change="ctrl.SelectProjectName()">
+                                                    class="select form-control">
                                                 <option value="" class="" selected="selected">-- Project Code --</option>
                                             </select>
                                         </div>
@@ -149,8 +148,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="well ">
-                                <div class="clearfix">                                    
-                                    <a data-toggle="tab" href="#newreach" class="btn btn-info pull-right btnNext">Next to Plan New Reach >>></a>
+                                <div class="clearfix">
+                                    <button data-toggle="tab" class="btn btn-info pull-right btnNext" >Next to Plan New Reach >>></button>
                                 </div>
                             </div>
                         </div>
@@ -162,10 +161,10 @@
             <div class="panel panel-info">
                 <div class="panel-heading pnl-heading">PLAN NEW REACH DATA FOR A FINANCIAL YEAR</div>
                 <div class="panel-body">
-                    <div class="well">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well">
+                                <div class="clearfix">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label">
@@ -173,8 +172,6 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-6" ng-repeat="table in  ctrl.reachdata.tablesNewReach">
                                         <div class="form-group table-quarter">
                                             <label class="control-label">{{table.name}}</label>
@@ -197,10 +194,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
+
                                     <div class="col-md-7">
                                         <div class="form-group">
                                             <label class="control-label">Note:</label>
@@ -221,16 +215,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a data-toggle="tab" href="#totalreach" class="btn btn-info btnPrevious"><<< Back to Plan Total Reach</a>
-                                        <a href=""
-                                           class="btn btn-success pull-right"
-                                           ng-click="ctrl.submitReachDataPlan()">
-                                            <i class="fa fa-save"></i> Submit Reach Data Plan
-                                        </a>
-                                    </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well ">
+                                <div class="clearfix">
+                                    <button data-toggle="tab" class="btn btn-info pull-left btnPrevious" ><<< Back to Plan Total Reach</button>
+                                    <a href="" class="btn btn-success pull-right" ng-click="ctrl.submitReachDataPlan()">
+                                        <i class="fa fa-save"></i> Submit Reach Data Plan
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -240,3 +234,15 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.btnNext').click(function () {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+
+        $('.btnPrevious').click(function () {
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+    });
+</script>

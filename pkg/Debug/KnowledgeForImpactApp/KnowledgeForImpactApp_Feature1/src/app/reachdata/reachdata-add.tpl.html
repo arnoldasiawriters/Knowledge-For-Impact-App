@@ -14,9 +14,9 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#background" target="_self">Background Information</a></li>
-        <li><a data-toggle="tab" href="#reach" target="_self">Total Reach Data (Actual)</a></li>
-        <li><a data-toggle="tab" href="#comms" target="_self">Communications</a></li>
+        <li><a data-toggle="tab" href="#reach" target="_self">Total & New Reach Data (Actuals)</a></li>
         <li><a data-toggle="tab" href="#support" target="_self">Supporting Documents</a></li>
+        <li><a data-toggle="tab" href="#comms" target="_self">Communications</a></li>
     </ul>
 
     <div class="tab-content">
@@ -44,7 +44,7 @@
                                             <label class="control-label">Quarter:</label>
                                             <select ng-model="ctrl.reachdata.quarter"
                                                     ng-options="x.title for x in ctrl.quarters track by x.id"
-                                                    ng-change="ctrl.SetActiveQuarter()"
+                                                    ng-change="ctrl.getPlannedData()"
                                                     class="select form-control">
                                                 <option value="" class="" selected="selected">-- Select Quarter --</option>
                                             </select>
@@ -92,7 +92,7 @@
                                             <select ng-model="ctrl.reachdata.project"
                                                     ng-options="x.code for x in ctrl.projects track by x.id"
                                                     class="select form-control"
-                                                    ng-change="ctrl.SelectProjectName()">
+                                                    ng-change="ctrl.getPlannedData()" ">
                                                 <option value="" class="" selected="selected">-- Project Code --</option>
                                             </select>
                                         </div>
@@ -215,28 +215,94 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label">
-                                                Please in the tables below enter the total number of people who were reached through this project/grant in the Current financial year.:
+                                                Please in the tables below enter the  TOTAL and NEW number of people who were reached through this project/grant in the Current financial year.:
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6" ng-repeat="table in ctrl.tablesData">
+                                    <div class="col-md-6" ng-if="ctrl.tablesDataTRPlan.length > 0">
                                         <div class="form-group table-quarter">
-                                            <label class="control-label">{{table.name}}</label>
+                                            <label class="control-label">TOTAL REACH PLAN FOR {{ctrl.reachdata.quarter.title | uppercase}} YEAR: {{ctrl.reachdata.year.title}}</label>
                                             <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
                                                 <tbody>
                                                     <tr tbl-header-cols></tr>
                                                     <tr tbl-header></tr>
-                                                    <tr ng-repeat="data in table.data">
+                                                    <tr ng-repeat="data in ctrl.tablesDataTRPlan">
                                                         <td>{{data.age}}</td>
-                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.female" ng-change="ctrl.calculateTotal(data)" /></td>
-                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.male" ng-change="ctrl.calculateTotal(data)" /></td>
-                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.other" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.female" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.male" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.other" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.total" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.pwdfemale" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.pwdmale" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.pwdother" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.pwdtotal" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" ng-if="ctrl.tablesDataNRPlan.length > 0">
+                                        <div class="form-group table-quarter">
+                                            <label class="control-label">NEW REACH PLAN FOR {{ctrl.reachdata.quarter.title | uppercase}} YEAR: {{ctrl.reachdata.year.title}}</label>
+                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
+                                                <tbody>
+                                                    <tr tbl-header-cols></tr>
+                                                    <tr tbl-header></tr>
+                                                    <tr ng-repeat="data in ctrl.tablesDataNRPlan">
+                                                        <td>{{data.age}}</td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.female" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.male" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.other" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.total" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.pwdfemale" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.pwdmale" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.pwdother" /></td>
+                                                        <td><input type="number" class="form-control" readonly ng-model="data.pwdtotal" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group table-quarter">
+                                            <label class="control-label">TOTAL REACH ACTUALS FOR {{ctrl.reachdata.quarter.title | uppercase}} YEAR: {{ctrl.reachdata.year.title}}</label>
+                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
+                                                <tbody>
+                                                    <tr tbl-header-cols></tr>
+                                                    <tr tbl-header></tr>
+                                                    <tr ng-repeat="data in ctrl.tablesDataTR">
+                                                        <td>{{data.age}}</td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.female" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.male" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.other" ng-change="ctrl.calculateTotal(data)" /></td>
                                                         <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.total" readonly /></td>
-                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(data)" /></td>
-                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(data)" /></td>
-                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-readonly="data.disabled" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdtotal" readonly /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group table-quarter">
+                                            <label class="control-label">NEW REACH ACTUALS FOR {{ctrl.reachdata.quarter.title | uppercase}} YEAR: {{ctrl.reachdata.year.title}}</label>
+                                            <table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0px !important;">
+                                                <tbody>
+                                                    <tr tbl-header-cols></tr>
+                                                    <tr tbl-header></tr>
+                                                    <tr ng-repeat="data in ctrl.tablesDataNR">
+                                                        <td>{{data.age}}</td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.female" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.male" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.other" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.total" readonly /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdfemale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdmale" ng-change="ctrl.calculateTotal(data)" /></td>
+                                                        <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdother" ng-change="ctrl.calculateTotal(data)" /></td>
                                                         <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.pwdtotal" readonly /></td>
                                                     </tr>
                                                 </tbody>
@@ -282,6 +348,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="support" class="tab-pane fade">
+            <div>
+
             </div>
         </div>
         <div id="comms" class="tab-pane fade">
@@ -380,11 +451,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div id="support" class="tab-pane fade">
-            <div>
-
             </div>
         </div>
     </div>

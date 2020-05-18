@@ -54,5 +54,6 @@
     <File Path="src\common\directives\reach-tbl-headers-cols\tbl-header-cols.tpl.html" Url="src/common/directives/reach-tbl-headers-cols/tbl-header-cols.tpl.html" ReplaceContent="TRUE" />
     <File Path="src\app\reachdata\reachdata-plan.tpl.html" Url="src/app/reachdata/reachdata-plan.tpl.html" ReplaceContent="TRUE" />
     <File Path="src\app\reachdata\reachdata-plan.js" Url="src/app/reachdata/reachdata-plan.js" ReplaceContent="TRUE" />
+    <File Path="src\app\reachdata\reachdata-add.js" Url="src/app/reachdata/reachdata-add.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

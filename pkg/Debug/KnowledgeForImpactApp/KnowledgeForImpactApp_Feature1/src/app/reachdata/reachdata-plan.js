@@ -5,8 +5,8 @@
         .module('reachdata-plan', [])
         .controller('reachDataPlanCtrl', ReachDataCtrl);
 
-    ReachDataCtrl.$inject = ['$q', '$dialogConfirm', '$dialogAlert', 'UtilService', '$route', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService'];
-    function ReachDataCtrl($q, $dialogConfirm, $dialogAlert, UtilService, $route, reachdatasvc, YearsSvc, programmesSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService) {
+    ReachDataCtrl.$inject = ['$q', '$dialogConfirm', '$dialogAlert', 'UtilService', '$route', '$location', '$anchorScroll', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService'];
+    function ReachDataCtrl($q, $dialogConfirm, $dialogAlert, UtilService, $route, $location, $anchorScroll, reachdatasvc, YearsSvc, programmesSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService) {
         var ctrl = this;
         ctrl.userid = _spPageContextInfo.userId;
         ctrl.action = $route.current.$$route.param;
@@ -38,6 +38,11 @@
             .catch(function (error) {
                 defer.reject(error);
             });
+
+        ctrl.scrollToTop = function () {
+            $location.hash('planReachData');
+            $anchorScroll();
+        };
 
         ctrl.submitReachDataPlan = function () {
             if (!ctrl.reachdata.year) {
@@ -74,23 +79,22 @@
                 return;
             }
 
+
             $dialogConfirm('Add Record?', 'Confirm Transaction')
                 .then(function () {
+                    //ctrl.scrollToTop();
                     spinnerService.show('spinner1');
-                    window.scrollTo(0, window.outerHeight / 2);
                     reachdatasvc
                         .addReachDataPlans(ctrl.reachdata)
                         .then(function (res) {
                             ctrl.reachdata = {};
                             setTables();
-                            window.scrollTo(0, 0);
-                            UtilService.showSuccessMessage('#notification-area', 'Plans for the project added Successfully!');
+                            UtilService.showSuccessMessage('#notification-area', 'Plans for the project for the periods added Successfully!');
                         })
                         .catch(function (error) {
                             UtilService.showErrorMessage('#notification-area', error);
                         })
                         .finally(function () {
-                            window.scrollTo(0, 0);
                             spinnerService.closeAll();
                         });
                 });

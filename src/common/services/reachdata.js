@@ -55,8 +55,8 @@
 
         svc.setTableDetails = function () {
             return [
-                { age: "0-5", female: "", male: "", other: "", total: 0, pwdfemale: "", pwdmale: "", pwdother: "", pwdtotal: 0 },
-                { age: "6-18", female: "", male: "", other: "", total: 0, pwdfemale: "", pwdmale: "", pwdother: "", pwdtotal: 0 },
+                { age: "00-05", female: "", male: "", other: "", total: 0, pwdfemale: "", pwdmale: "", pwdother: "", pwdtotal: 0 },
+                { age: "06-18", female: "", male: "", other: "", total: 0, pwdfemale: "", pwdmale: "", pwdother: "", pwdtotal: 0 },
                 { age: "19-35", female: "", male: "", other: "", total: 0, pwdfemale: "", pwdmale: "", pwdother: "", pwdtotal: 0 },
                 { age: "36-60", female: "", male: "", other: "", total: 0, pwdfemale: "", pwdmale: "", pwdother: "", pwdtotal: 0 },
                 { age: "60+", female: "", male: "", other: "", total: 0, pwdfemale: "", pwdmale: "", pwdother: "", pwdtotal: 0 }
@@ -92,7 +92,7 @@
                         });
                     });
 
-                    
+
                     _.forEach(reachdata.tablesNewReach, function (dn) {
                         _.forEach(dn.data, function (cd) {
                             var data = {};
@@ -130,6 +130,51 @@
                     deferPRD.reject("An error occured while getting quarter details. Contact IT Service desk for support.");
                 });
             return deferPRD.promise;
+        };
+
+        svc.getPlannedProjectData = function (projId, quarterId, reachType) {
+            var deferPlan = $q.defer();
+            var qparam = "$select=Id,Age,Male,Female,Other,PWDMale,PWDFemale,PWDOther&$filter=FinancialQuarter/Id eq " + quarterId + " and Project/Id eq " + projId + " and ReachType eq '" + reachType + "'";
+            var returnTable = svc.setTableDetails();
+            ShptRestService
+                .getListItems("ReachDataForeCast", qparam)
+                .then(function (data) {
+                    if (data.results.length <= 0) {
+                        _.forEach(returnTable, function (rrd) {
+                            rrd.male = 0;
+                            rrd.female = 0;
+                            rrd.other = 0;
+                            rrd.total = 0;
+                            rrd.pwdmale = 0;
+                            rrd.pwdfemale = 0;
+                            rrd.pwdother = 0;
+                            rrd.pwdtotal = 0;
+                        })
+                        deferPlan.resolve(returnTable);
+                    } else {
+                        _.forEach(data.results, function (pdata) {
+                            _.forEach(returnTable, function (rrd) {
+                                if (rrd.age == pdata.Age) {
+                                    rrd.male = pdata.Male;
+                                    rrd.female = pdata.Female;
+                                    rrd.other = pdata.Other;
+                                    rrd.total = pdata.Male + pdata.Female + pdata.Other;
+                                    rrd.pwdmale = pdata.PWDMale;
+                                    rrd.pwdfemale = pdata.PWDFemale;
+                                    rrd.pwdother = pdata.PWDOther;
+                                    rrd.pwdtotal = pdata.PWDMale + pdata.PWDFemale + pdata.PWDOther;
+                                }
+                            })
+                        });
+                        deferPlan.resolve(returnTable);
+                    }
+                })
+                .catch(function (error) {
+                    deferPlan.reject("An error occured while fetching the items. Contact IT Service desk for support.");
+                    console.log(error);
+                });
+
+            return deferPlan.promise;
         };
     }
 })();
