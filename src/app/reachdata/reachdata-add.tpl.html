@@ -1,4 +1,4 @@
-﻿<div class="bootstrap-iso ng-scope">
+﻿<div class="bootstrap-iso ng-scope" id="planReachData">
     <div class="well well-sm">
         <div class="row">
             <div class="col-md-12">
@@ -44,7 +44,6 @@
                                             <label class="control-label">Quarter:</label>
                                             <select ng-model="ctrl.reachdata.quarter"
                                                     ng-options="x.title for x in ctrl.quarters track by x.id"
-                                                    ng-change="ctrl.getPlannedData()"
                                                     class="select form-control">
                                                 <option value="" class="" selected="selected">-- Select Quarter --</option>
                                             </select>
@@ -191,14 +190,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <!--<a href="#" class="btn btn-success"><< Back to List View</a>-->
-                                        <a href="#" class="btn btn-success pull-right">Next to Total Reach Data >>></a>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button data-toggle="tab" class="btn btn-info pull-right btnNext" ng-click="ctrl.scrollToTop()">Next to Reach Data Actuals >>></button>
                         </div>
                     </div>
                 </div>
@@ -272,7 +270,7 @@
                                                 <tbody>
                                                     <tr tbl-header-cols></tr>
                                                     <tr tbl-header></tr>
-                                                    <tr ng-repeat="data in ctrl.tablesDataTR">
+                                                    <tr ng-repeat="data in ctrl.reachdata.tablesDataTR">
                                                         <td>{{data.age}}</td>
                                                         <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.female" ng-change="ctrl.calculateTotal(data)" /></td>
                                                         <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.male" ng-change="ctrl.calculateTotal(data)" /></td>
@@ -294,7 +292,7 @@
                                                 <tbody>
                                                     <tr tbl-header-cols></tr>
                                                     <tr tbl-header></tr>
-                                                    <tr ng-repeat="data in ctrl.tablesDataNR">
+                                                    <tr ng-repeat="data in ctrl.reachdata.tablesDataNR">
                                                         <td>{{data.age}}</td>
                                                         <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.female" ng-change="ctrl.calculateTotal(data)" /></td>
                                                         <td><input type="number" class="form-control" min="0" onkeypress="return event.charCode >= 48" ng-model="data.male" ng-change="ctrl.calculateTotal(data)" /></td>
@@ -330,21 +328,21 @@
                                             <label class="control-label">Please provide as much detail as possible on who is included within 'other' in the current quarter.</label>
                                             <textarea class="form-control"
                                                       rows="7"
-                                                      ng-model="ctrl.emergency.specificgroups"
+                                                      ng-model="ctrl.reachdata.othersdetails"
                                                       placeholder="It is mandatory to fill this section with explanations for any variances across quarters, PAs and demographics (age, sex, PWD). ">
                                             </textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="#" class="btn btn-success"><< Back to Background Information</a>
-                                        <a href="#" class="btn btn-success pull-right">Next to New Reach Data>></a>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button data-toggle="tab" class="btn btn-info btnPrevious" ng-click="ctrl.scrollToTop()"><<< Background Information</button>
+                            <button data-toggle="tab" class="btn btn-info pull-right btnNext" ng-click="ctrl.scrollToTop()">Next to Supporting Documents >>></button>
                         </div>
                     </div>
                 </div>
@@ -356,33 +354,84 @@
                 <div class="panel-body">
                     <div class="well">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-9">
                                 <div class="form-group">
-                                    <label class="control-label">Type of Document</label>
-                                    <input class="form-control"
-                                           type="text"
-                                           name="title"
-                                           ng-model="ctrl.reachdata.project.title">
+                                    <label class="control-label">Type of Document:</label>
+                                    <select ng-model="ctrl.document.type"
+                                            ng-options="x.title for x in ctrl.doctypes track by x.id"
+                                            class="select form-control">
+                                        <option value="" class="" selected="selected">-- Select Document Type --</option>
+                                    </select>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
+
                                 <div class="form-group">
                                     <label class="control-label">A brief discussion about the document</label>
                                     <textarea class="form-control"
                                               rows="4"
-                                              ng-model="ctrl.reachdata.specificgroups"
-                                              placeholder="Give as much information as you can. E.g. girls in schools that will be supported by VSO, teachers or health professionals that will receive training, farmers in a specific community who will be connected to local markets, children with disabilities, young mothers, unemployed youth, new born and young children below 5 years, etc. Provide list of primary actors here.">
+                                              ng-model="ctrl.document.details"
+                                              placeholder="A brief discussion about the document">
                                         </textarea>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="#" class="btn btn-success"><<< Back to Background Information</a>
-                                        <a href="#" class="btn btn-success pull-right">Next to Supporting Documents >>></a>
+
+                                <div class="form-group">
+                                    <label class="control-label">Attachment</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-paperclip"></i></span>
+                                        <input type="file" placeholder="Attachment" class="form-control input-md file" ng-file-model="ctrl.document.attachment">
                                     </div>
+                                    <span class="help-block">
+                                        Not Mandatory. The attachment should contain a list of data variables
+                                        being submitted. (Only Word, pdf and excel documents accepted)
+                                    </span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <a href="" class="btn btn-success pull-right" ng-click="ctrl.uploadDocument()">
+                                    <i class="fa fa-save"></i> Upload Document
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th style="min-width:150px;">Document Url</th>
+                                        <th style="min-width:150px;">Document Type</th>
+                                        <th style="min-width:200px;">Document Description</th>
+                                        <th style="min-width:100px;">Upload Date</th>
+                                        <th style="min-width:150px;">Upload By</th>
+                                        <th style="width:110px">Action</th>
+                                    </tr>
+
+                                    <tr ng-repeat="doc in ctrl.supportingDocs | orderBy: '-uploaddate'">
+                                        <td><a href="{{doc.link.href}}?&web=1" target="_blank">{{doc.link.title}}</a></td>
+                                        <td><span>{{doc.type.title}}</span></td>
+                                        <td><span>{{doc.details}}</span></td>
+                                        <td><span>{{doc.uploaddate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}</span></td>
+                                        <td><span>{{doc.uploadby.title}}</span></td>
+                                        <td><a href="" class="btn btn-sm btn-danger" ng-click="ctrl.RemoveDocument(doc.id)">Delete</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <a href="" class="btn btn-success pull-right" ng-click="ctrl.submitReachDataActuals()">
+                                <i class="fa fa-save"></i> Submit Reach Data Actuals
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button data-toggle="tab" class="btn btn-info btnPrevious" ng-click="ctrl.scrollToTop()"><<< Back to Reach Data Actuals</button>
+                            <button data-toggle="tab" class="btn btn-info pull-right btnNext" ng-click="ctrl.scrollToTop()">Next to Communications >>></button>
                         </div>
                     </div>
                 </div>
@@ -394,89 +443,42 @@
                     <div class="col-md-8">
                         <div class="panel panel-primary">
                             <div class="panel-heading" id="accordion">
-                                <span class="glyphicon glyphicon-comment"></span> Reach Data Conversations
+                                <span class="glyphicon glyphicon-comment"></span> Reach Data Conversations for {{ctrl.reachdata.project.title}} {{ctrl.reachdata.quarter.title}} Year {{ctrl.reachdata.year.title}}
                             </div>
 
                             <div class="panel-body">
                                 <ul class="chat">
-                                    <li class="left clearfix">
-                                        <span class="chat-img pull-left">
-                                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body clearfix">
-                                            <div class="header">
-                                                <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>14th April, 2019 08.00am</small>
-                                                <strong class="pull-right primary-font">Richard Maina</strong>
-                                            </div>
-                                            <p>
-                                                This is an example of communications that can be sent through this application.
-                                                Once information has been sent on the application, an email is also sent along to the respective user informing them about the message that
-                                                has been sent and a link is also attached that the user can use to access this message.
-                                            </p>
-                                        </div>
-                                    </li>
+                                    <li class="left clearfix" ng-repeat="comment in ctrl.comments">
+                                        <span class="chat-img pull-left"><img src="images/adminImage.png" alt="Admin Avatar" class="img-circle" ng-if="comment.usertype=='Admin'" /></span>
+                                        <span class="chat-img pull-right"><img src="images/userImage.png" alt="User Avatar" class="img-circle" ng-if="comment.usertype=='User'" /></span>
 
-                                    <li class="right clearfix">
-                                        <span class="chat-img pull-right">
-                                            <img src="http://placehold.it/50/55C1E7/fff&text=US" alt="User Avatar" class="img-circle" />
-                                        </span>
                                         <div class="chat-body clearfix">
-                                            <div class="header">
-                                                <strong class="primary-font">Arnold Mwadwaa</strong> <small class="pull-right text-muted">
-                                                    <span class="glyphicon glyphicon-time"></span>14th April, 2019 08.16am
+                                            <div class="header" ng-if="comment.usertype=='Admin'">
+                                                <small class=" text-muted">
+                                                    <span class="glyphicon glyphicon-time"></span>{{comment.commentdate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}
+                                                </small>
+                                                <strong class="pull-right primary-font">{{comment.commentby.title}}</strong>
+                                            </div>
+                                            <div class="header" ng-if="comment.usertype=='User'">
+                                                <strong class="primary-font">{{comment.commentby.title}}</strong>
+                                                <small class="pull-right text-muted">
+                                                    <span class="glyphicon glyphicon-time"></span>{{comment.commentdate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}
                                                 </small>
                                             </div>
-                                            <p>
-                                                This is an example of communications that can be sent through this application.
-                                                Once information has been sent on the application, an email is also sent along to the respective user informing them about the message that
-                                                has been sent and a link is also attached that the user can use to access this message.
-                                            </p>
-                                        </div>
-                                    </li>
-
-                                    <li class="left clearfix">
-                                        <span class="chat-img pull-left">
-                                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body clearfix">
-                                            <div class="header">
-                                                <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>14th April, 2019 08.45am</small>
-                                                <strong class="pull-right primary-font">Joseph Orem</strong>
-                                            </div>
-                                            <p>
-                                                This is an example of communications that can be sent through this application.
-                                                Once information has been sent on the application, an email is also sent along to the respective user informing them about the message that
-                                                has been sent and a link is also attached that the user can use to access this message.
-                                            </p>
-                                        </div>
-                                    </li>
-
-                                    <li class="right clearfix">
-                                        <span class="chat-img pull-right">
-                                            <img src="http://placehold.it/50/55C1E7/fff&text=US" alt="User Avatar" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body clearfix">
-                                            <div class="header">
-                                                <strong class="primary-font">Arnold Mwadwaa</strong> <small class="pull-right text-muted">
-                                                    <span class="glyphicon glyphicon-time"></span>14th April, 2019 09.12am
-                                                </small>
-                                            </div>
-                                            <p>
-                                                This is an example of communications that can be sent through this application.
-                                                Once information has been sent on the application, an email is also sent along to the respective user informing them about the message that
-                                                has been sent and a link is also attached that the user can use to access this message.
-                                            </p>
+                                            <p>{{comment.comment}}</p>
+                                            <a href="" class="btn btn-xs btn-danger pull-right" ng-click="ctrl.deleteComment(comment.id)" ng-if="comment.usertype=='Admin' && comment.commentby.id == ctrl.userid">Delete</a>
+                                            <a href="" class="btn btn-xs btn-danger pull-left" ng-click="ctrl.deleteComment(comment.id)" ng-if="comment.usertype=='User' && comment.commentby.id == ctrl.userid">Delete</a>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                             <div class="panel-footer">
                                 <div class="input-group">
-                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." ng-model="ctrl.comment" />
                                     <span class="input-group-btn">
-                                        <button class="btn btn-warning btn-sm" id="btn-chat">
-                                            Send Message
-                                        </button>
+                                        <a href="" class="btn btn-warning btn-sm" ng-click="ctrl.addComment()">
+                                            Send Comment
+                                        </a>
                                     </span>
                                 </div>
                             </div>
@@ -488,3 +490,14 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.btnNext').click(function () {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+
+        $('.btnPrevious').click(function () {
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+    });
+</script>

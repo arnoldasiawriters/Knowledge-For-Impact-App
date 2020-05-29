@@ -1,0 +1,38 @@
+﻿<div class="bootstrap-iso ng-scope">
+    <back-btn title="Back to Reach Data List" link="listReachData"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>Setting Code</th>
+                                    <th>Setting Name</th>
+                                    <th>Setting Value</th>
+                                    <th style="min-width: 150px"></th>
+                                </tr>
+                                <tr dir-paginate="setting in ctrl.settings | orderBy: 'code' | itemsPerPage: 10">
+                                    <td><span>{{setting.code}}</span></td>
+                                    <td><span>{{setting.title}}</span></td>
+                                    <td><span>{{setting.value}}</span></td>
+                                    <td>
+                                        <a href="#listAdminSettings" class="btn btn-xs btn-danger" ng-click="ctrl.updateRecord(setting.id)">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-12">
+                        <dir-pagination-controls boundary-links="true" template-url="common/directives/pagination/dirPagination.tpl.html">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -27,7 +27,7 @@
     <ElementFile Location="src\common\utilities\sp-ng-module.js" />
     <ElementFile Location="src\common\utilities\utilities.js" />
     <ElementFile Location="src\app\reachdata\reachdata-db.tpl.html" />
-    <ElementFile Location="src\app\reachdata\reachdata.js" />
+    <ElementFile Location="src\app\reachdata\reachdata-db.js" />
     <ElementFile Location="src\app\reachdata\reachdata-add.tpl.html" />
     <ElementFile Location="src\common\services\financialyears.js" />
     <ElementFile Location="src\common\services\programmes.js" />
@@ -70,6 +70,15 @@
     <ElementFile Location="src\app\reachdata\reachdata-plan.tpl.html" />
     <ElementFile Location="src\app\reachdata\reachdata-plan.js" />
     <ElementFile Location="src\app\reachdata\reachdata-add.js" />
+    <ElementFile Location="src\app\adm-doctypes\doctypes-add.tpl.html" />
+    <ElementFile Location="src\app\adm-doctypes\doctypes-list.tpl.html" />
+    <ElementFile Location="src\app\adm-doctypes\doctypes.js" />
+    <ElementFile Location="src\common\services\doctypes.js" />
+    <ElementFile Location="src\common\directives\ng-file-model.js" />
+    <ElementFile Location="src\images\adminImage.png" />
+    <ElementFile Location="src\images\userImage.png" />
+    <ElementFile Location="src\css\angular-growl.min.css" />
+    <ElementFile Location="src\common\directives\angular-growl.min.js" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

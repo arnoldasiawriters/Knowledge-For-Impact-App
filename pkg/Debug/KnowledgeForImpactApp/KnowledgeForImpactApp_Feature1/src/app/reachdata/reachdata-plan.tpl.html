@@ -145,13 +145,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="well ">
-                                <div class="clearfix">
-                                    <button data-toggle="tab" class="btn btn-info pull-right btnNext" >Next to Plan New Reach >>></button>
-                                </div>
-                            </div>
+                            <button data-toggle="tab" class="btn btn-info pull-right btnNext" ng-click="ctrl.scrollToTop()">Next to Plan New Reach >>></button>
                         </div>
                     </div>
                 </div>
@@ -220,13 +218,19 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="well ">
-                                <div class="clearfix">
-                                    <button data-toggle="tab" class="btn btn-info pull-left btnPrevious" ><<< Back to Plan Total Reach</button>
+                                <div class="clearfix">                                    
                                     <a href="" class="btn btn-success pull-right" ng-click="ctrl.submitReachDataPlan()">
                                         <i class="fa fa-save"></i> Submit Reach Data Plan
                                     </a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button data-toggle="tab" class="btn btn-info pull-left btnPrevious" ng-click="ctrl.scrollToTop()"><<< Back to Plan Total Reach</button>
                         </div>
                     </div>
                 </div>

@@ -5,8 +5,9 @@
         .module('reachdata', [])
         .controller('reachDataCtrl', ReachDataCtrl);
 
-    ReachDataCtrl.$inject = ['$q', '$location', '$routeParams', '$route', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'quartersSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService'];
-    function ReachDataCtrl($q, $location, $routeParams, $route, reachdatasvc, YearsSvc, programmesSvc, quartersSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService) {
+    ReachDataCtrl.$inject = ['$q', '$location', '$routeParams', '$route', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'quartersSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'UtilService'];
+    function ReachDataCtrl($q, $location, $routeParams, $route, reachdatasvc, YearsSvc, programmesSvc, quartersSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, UtilService) {
+        spinnerService.show('spinner1');
         var ctrl = this;
         ctrl.userid = _spPageContextInfo.userId;
         ctrl.title = "Plan Scale & Reach Data";
@@ -15,20 +16,11 @@
         ctrl.reachdata = {};
         ctrl.reachdatas = [];
         ctrl.filterEmergencies = [];
-        ctrl.tablesDataTR = [];
-        ctrl.tablesDataNR = [];
         ctrl.totalprojects = 0;
         ctrl.submitted = 0;
         ctrl.pending = 0;
         ctrl.review = 0;
-        ctrl.approved = 0;
-
-        spinnerService.show('spinner1');
-
-        if (ctrl.action == "add") {            
-            ctrl.tablesDataTR.push(reachdatasvc.setTableDetails());
-            ctrl.tablesDataNR.push(reachdatasvc.setTableDetails());
-        }
+        ctrl.approved = 0;        
 
         var promises = [];
         promises.push(YearsSvc.getAllItems());
@@ -43,15 +35,13 @@
                 ctrl.programmes = results[1];
                 ctrl.countries = results[2];
                 ctrl.grants = results[3];
-                ctrl.projects = results[4];
-
-                //ctrl.reachdata.year = _.find(ctrl.years, ['title', '2019-2020']);
-                //ctrl.SelectQuarter();               
-
-                spinnerService.closeAll();
+                ctrl.projects = results[4];                
             })
             .catch(function (error) {
-                defer.reject(error);
+                UtilService.showErrorMessage('#notification-area', error);
+            })
+            .finally(function () {
+                spinnerService.closeAll();
             });
 
         ctrl.SelectQuarter = function () {
@@ -62,8 +52,6 @@
                     .getAllItemsYear(ctrl.reachdata.year)
                     .then(function (res) {
                         ctrl.quarters = res;
-                        //ctrl.reachdata.quarter = _.find(ctrl.quarters, ['abbr', 'Q1']);
-                        //ctrl.SearchReachData();
                     })
                     .catch(function (error) {
                         console.log('An Error Occured!', error);
@@ -143,31 +131,9 @@
             data.pwdtotal = pwdfemale + pwdmale + pwdother;
         };
 
-        //ctrl.SetActiveQuarter = function () {
-        //    var curData = [];
-        //    if (ctrl.reachdata.quarter.abbr == "Q1") {
-        //        curData = ctrl.tablesData[0];
-        //    } else if (ctrl.reachdata.quarter.abbr == "Q2") {
-        //        curData = ctrl.tablesData[1];
-        //    } else if (ctrl.reachdata.quarter.abbr == "Q3") {
-        //        curData = ctrl.tablesData[2];
-        //    } else if (ctrl.reachdata.quarter.abbr == "Q4") {
-        //        curData = ctrl.tablesData[3];
-        //    }
-
-        //    _.forEach(ctrl.tablesData, function (tdata) {
-        //        _.forEach(tdata.data, function (td) {
-        //            td.disabled = true;
-        //        });
-        //    });
-
-        //    _.forEach(curData.data, function (td) {
-        //        td.disabled = false;
-        //    });
-        //};
-
-        ctrl.addRecord = function () {
+        ctrl.uploadExcelTemplate = function () {
 
         };
+       
     }
 })();

@@ -56,7 +56,7 @@
                         defer.resolve(_.filter(medatas, function (p) { return p.mereport == filter && p.programme.id == programme.id; }));
                     } else {
                         defer.resolve(_.filter(medatas, ['mereport', filter]));
-                    }                    
+                    }
                 })
                 .catch(function (error) {
                     defer.reject(error);
@@ -129,6 +129,64 @@
             return defer.promise;
         };
 
+        svc.UpdateItem = function (project) {
+            var defEditProj = $q.defer();
+            var projExists = _.some(projectsList, function (o) {
+                return o.id == project.id;
+            });
+
+            if (projExists) {
+                var mepersonids = [];
+                _.forEach(project.meperson, function (value, key) {
+                    mepersonids.push(ShptRestService.ensureUser(value.Login));
+                });
+
+                $q
+                    .all(mepersonids)
+                    .then(function (data) {
+                        var meidstosave = [];
+                        _.forEach(data, function (dt) {
+                            meidstosave.push(dt.Id);
+                        });
+                        var mereport = true;
+                        if (project.mereport == "No") {
+                            mereport = false;
+                        }
+                        var data = {
+                            Title: project.title,
+                            Code: project.code,
+                            GlobalProgrammeId: project.programme.id,
+                            CountryId: project.country.id,
+                            MEPersonId: { "results": meidstosave },
+                            MEReport: mereport
+                        };
+                        ShptRestService
+                            .updateListItem(listname, project.id, data)
+                            .then(function (response) {
+                                svc
+                                    .getAllItems()
+                                    .then(function (projs) {
+                                        defEditProj.resolve(projs);
+                                    })
+                                    .catch(function (error) {
+                                        defEditProj.reject(error);
+                                    });
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                                defEditProj.reject("An error occured while adding the item. Contact IT Service desk for support.");
+                            });
+                    })
+                    .catch(function (error) {
+                        defEditProj.reject("An error occured while getting the User Ids. Contact IT Service desk for support.");
+                        console.log(error);
+                    });               
+            } else {
+                defEditProj.reject('group to be edited does not exist in the list.');
+            }
+            return defEditProj.promise;
+        };
+
         svc.DeleteItem = function (id) {
             var defer = $q.defer();
             if (id) {
@@ -148,6 +206,28 @@
                 defer.reject('Item to be deleted is missing Id. Contact IT Service desk for support.');
             }
             return defer.promise;
+        };
+
+        svc.getProjectMEPersons = function (projId) {
+            var deferME = $q.defer();
+            var queryParams = "$select=Id,MEPerson/Id,MEPerson/Title&$expand=MEPerson";
+            ShptRestService
+                .getListItemById(listname, projId, queryParams)
+                .then(function (data) {
+                    var MEPPersonsList = [];
+                    _.forEach(data.MEPerson.results, function (o) {
+                        var meperson = {};
+                        meperson.id = o.Id;
+                        meperson.title = o.Title;
+                        MEPPersonsList.push(meperson);
+                    });
+                    deferME.resolve(MEPPersonsList);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    deferME.reject(error);
+                });
+            return deferME.promise;
         };
     }
 })();

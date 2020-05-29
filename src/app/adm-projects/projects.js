@@ -5,14 +5,15 @@
         .module('projects', [])
         .controller('projectsCtrl', ProjectsCtrl);
 
-    ProjectsCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$location', 'projectsSvc', 'countriesSvc', 'programmesSvc', 'spinnerService', 'UtilService'];
-    function ProjectsCtrl($q, $dialogConfirm, $route, $location, projectsSvc, countriesSvc, programmesSvc, spinnerService, UtilService) {
+    ProjectsCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$routeParams', '$location', 'projectsSvc', 'countriesSvc', 'programmesSvc', 'spinnerService', 'UtilService', 'growl'];
+    function ProjectsCtrl($q, $dialogConfirm, $route, $routeParams, $location, projectsSvc, countriesSvc, programmesSvc, spinnerService, UtilService, growl) {
         var ctrl = this;
         ctrl.project = {};
         ctrl.hostWebUrl = projectsSvc.hostWebUrl;
         ctrl.action = $route.current.$$route.param;
         ctrl.links = UtilService.getAppShortcutlinks(6);
-        
+        ctrl.projId = $routeParams.id;
+
         if (ctrl.action == 'list') {
             spinnerService.show('spinner1');
         }
@@ -28,9 +29,14 @@
                 ctrl.projects = data[0];
                 ctrl.countries = data[1];
                 ctrl.programmes = data[2];
+                if (ctrl.projId && ctrl.action == 'edit') {
+                    ctrl.project = _.find(ctrl.projects, function (p) {
+                        return p.id == ctrl.projId;
+                    });
+                }
             })
             .catch(function (error) {
-                UtilService.showErrorMessage('#notification-area', error);
+                growl.error(error);
             })
             .finally(function () {
                 spinnerService.closeAll();
@@ -41,23 +47,29 @@
                 return;
             }
 
-            $dialogConfirm('Add Record?', 'Confirm Transaction')
+            $dialogConfirm(ctrl.action == "edit" ? "Update Record?" : "Add Record?", 'Confirm Transaction')
                 .then(function () {
                     spinnerService.show('spinner1');
-                    projectsSvc
-                        .AddItem(ctrl.project)
+                    var updateProms = [];
+                    if (ctrl.action == 'edit') {
+                        updateProms.push(projectsSvc.UpdateItem(ctrl.project));
+                    } else {
+                        updateProms.push(projectsSvc.AddItem(ctrl.project));
+                    }
+                    $q
+                        .all(updateProms)
                         .then(function (res) {
-                            ctrl.projects = res;
-                            UtilService.showSuccessMessage('#notification-area', 'Record added successfully!');
+                            ctrl.projects = res[0];
+                            growl.success(ctrl.action == "edit" ? "Record updated successfully!" : "Record added successfully!");
                             $location.path("/listAdminProjects");
                         })
                         .catch(function (error) {
-                            UtilService.showErrorMessage('#notification-area', error);
+                            growl.error(error);
                         })
                         .finally(function () {
                             spinnerService.closeAll();
                         });
-                });           
+                });
         };
 
         ctrl.DeleteRecord = function (id) {
@@ -68,10 +80,10 @@
                         .DeleteItem(id)
                         .then(function (res) {
                             ctrl.projects = res;
-                            UtilService.showSuccessMessage('#notification-area', 'Record deleted successfully!');
+                            growl.success('Record deleted successfully!');
                         })
                         .catch(function (error) {
-                            UtilService.showErrorMessage('#notification-area', error);
+                            growl.error(error);
                         })
                         .finally(function () {
                             spinnerService.closeAll();

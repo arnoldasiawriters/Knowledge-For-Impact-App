@@ -14,12 +14,13 @@
     <script type="text/javascript" src="/_layouts/15/sp.taxonomy.js"></script>
 
      <!-- Add your CSS styles to the following file -->
-    <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
-    <link  href="common/directives/spinner/loading-spinner.css" rel="stylesheet"/>
-    <link  href="css/chat.css" rel="stylesheet"/>
-    <link  href="css/App.css" rel="Stylesheet"/>  
-    <link  href="common/people-picker/sp-peoplepicker.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
+    <link href="common/directives/spinner/loading-spinner.css" rel="stylesheet"/>
+    <link href="css/angular-growl.min.css" rel="stylesheet" />
+    <link href="css/chat.css" rel="stylesheet"/>
+    <link href="css/App.css" rel="Stylesheet"/>  
+    <link href="common/people-picker/sp-peoplepicker.min.css" rel="stylesheet" />
 
     <!-- Add your JavaScript to the following file -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -44,9 +45,12 @@
     <script type="text/javascript" src="common/services/countries.js"></script>
     <script type="text/javascript" src="common/services/grants.js"></script>
     <script type="text/javascript" src="common/services/projects.js"></script>
+    <script type="text/javascript" src="common/services/doctypes.js"></script>
 
     <!--Directives-->
+    <script type="text/javascript" src="common/directives/ng-file-model.js"></script>
     <script type="text/javascript" src="common/directives/admin-menu/admin-menu.dir.js"></script>
+    <script type="text/javascript" src="common/directives/angular-growl.min.js"></script>
     <script type="text/javascript" src="common/directives/add-btn/add-btn.dir.js"></script>
     <script type="text/javascript" src="common/directives/back-btn/back-btn.dir.js"></script>
     <script type="text/javascript" src="common/people-picker/sp-peoplepicker.min.js"></script>
@@ -59,10 +63,11 @@
     <script type="text/javascript" src="app/adm-grants/grants.js"></script>
     <script type="text/javascript" src="app/adm-countries/countries.js"></script>
     <script type="text/javascript" src="app/adm-programmes/programmes.js"></script>
+    <script type="text/javascript" src="app/adm-doctypes/doctypes.js"></script>
     <script type="text/javascript" src="app/adm-projects/projects.js"></script>
     <script type="text/javascript" src="app/reachdata/reachdata-add.js"></script>
     <script type="text/javascript" src="app/reachdata/reachdata-plan.js"></script>
-    <script type="text/javascript" src="app/reachdata/reachdata.js"></script>
+    <script type="text/javascript" src="app/reachdata/reachdata-db.js"></script>
 
     <script type="text/javascript" src="app/App.js"></script>
 </asp:Content>
@@ -79,10 +84,11 @@
             <div id="body" ng-app="app">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="notification-area"></div>
+                        <%--<div id="notification-area"></div>--%>
+                        <div growl class="font-bold"></div>
                         <div class="panel panel-warning">
                             <div class="panel-heading pnl-heading">SCALE AND REACH APPLICATION</div>
-                            <div class="panel-body" ng-view autoscroll></div>
+                            <div class="panel-body" style="min-height: 525px;" ng-view autoscroll></div>
                             <div class="panel-footer clearfix"><span class="pull-right">© 2020 VSO International, Knowledge For Impact Team</span></div>
                             <sarsha-spinner name="spinner1"></sarsha-spinner>
                         </div>

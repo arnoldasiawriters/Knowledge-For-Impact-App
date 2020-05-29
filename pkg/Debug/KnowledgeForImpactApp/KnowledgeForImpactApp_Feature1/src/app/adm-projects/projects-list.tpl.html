@@ -16,7 +16,7 @@
                                     <th>Project Code</th>
                                     <th>Programme</th>
                                     <th>Country</th>
-                                    <th>ME Report?</th>
+                                    <th>Status</th>
                                     <th>ME Person/s</th>
                                     <th style="min-width: 120px"></th>
                                 </tr>
@@ -39,6 +39,7 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
+                                                    <a href="#editAdminProject/{{project.id}}">Edit</a>
                                                     <a href="#listAdminProjects" ng-click="ctrl.DeleteRecord(project.id)">Delete</a>
                                                 </li>
                                             </ul>

@@ -12,7 +12,7 @@
     <File Path="src\common\utilities\sp-ng-module.js" Url="src/common/utilities/sp-ng-module.js" ReplaceContent="TRUE" />
     <File Path="src\common\utilities\utilities.js" Url="src/common/utilities/utilities.js" ReplaceContent="TRUE" />
     <File Path="src\app\reachdata\reachdata-db.tpl.html" Url="src/app/reachdata/reachdata-db.tpl.html" ReplaceContent="TRUE" />
-    <File Path="src\app\reachdata\reachdata.js" Url="src/app/reachdata/reachdata.js" ReplaceContent="TRUE" />
+    <File Path="src\app\reachdata\reachdata-db.js" Url="src/app/reachdata/reachdata-db.js" ReplaceContent="TRUE" />
     <File Path="src\app\reachdata\reachdata-add.tpl.html" Url="src/app/reachdata/reachdata-add.tpl.html" ReplaceContent="TRUE" />
     <File Path="src\common\services\financialyears.js" Url="src/common/services/financialyears.js" ReplaceContent="TRUE" />
     <File Path="src\common\services\programmes.js" Url="src/common/services/programmes.js" ReplaceContent="TRUE" />
@@ -55,5 +55,14 @@
     <File Path="src\app\reachdata\reachdata-plan.tpl.html" Url="src/app/reachdata/reachdata-plan.tpl.html" ReplaceContent="TRUE" />
     <File Path="src\app\reachdata\reachdata-plan.js" Url="src/app/reachdata/reachdata-plan.js" ReplaceContent="TRUE" />
     <File Path="src\app\reachdata\reachdata-add.js" Url="src/app/reachdata/reachdata-add.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-doctypes\doctypes-add.tpl.html" Url="src/app/adm-doctypes/doctypes-add.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-doctypes\doctypes-list.tpl.html" Url="src/app/adm-doctypes/doctypes-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-doctypes\doctypes.js" Url="src/app/adm-doctypes/doctypes.js" ReplaceContent="TRUE" />
+    <File Path="src\common\services\doctypes.js" Url="src/common/services/doctypes.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\ng-file-model.js" Url="src/common/directives/ng-file-model.js" ReplaceContent="TRUE" />
+    <File Path="src\images\adminImage.png" Url="src/images/adminImage.png" ReplaceContent="TRUE" />
+    <File Path="src\images\userImage.png" Url="src/images/userImage.png" ReplaceContent="TRUE" />
+    <File Path="src\css\angular-growl.min.css" Url="src/css/angular-growl.min.css" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\angular-growl.min.js" Url="src/common/directives/angular-growl.min.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

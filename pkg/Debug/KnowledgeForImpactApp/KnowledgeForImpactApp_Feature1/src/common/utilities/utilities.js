@@ -107,7 +107,9 @@ angular
                 { 'id': 3, title: 'Countries', icon: 'fa-flag', url: '#listAdminCountries', class: '' },
                 { 'id': 4, title: 'Grants', icon: 'fa-euro-sign', url: '#listAdminGrants', class: '' },
                 { 'id': 5, title: 'Programmes', icon: 'fa-book', url: '#listAdminProgrammes', class: '' },
-                { 'id': 6, title: 'Projects', icon: 'fa-users', url: '#listAdminProjects', class: '' }];
+                { 'id': 6, title: 'Projects', icon: 'fa-users', url: '#listAdminProjects', class: '' },
+                { 'id': 7, title: 'Document Types', icon: 'fa-book', url: '#listAdminDocTypes', class: '' }];
+
             var activeLink = _.find(links, ['id', activeLinkId]);
             activeLink.class = "button-active";
             return links;
@@ -291,17 +293,49 @@ angular
         var shptService = {};
         shptService.appWebUrl = decodeURIComponent(UtilService.getQueryStringParameter('SPAppWebUrl')).split('#')[0];
         shptService.hostWebUrl = decodeURIComponent(UtilService.getQueryStringParameter('SPHostUrl')).split('#')[0];
+
+
+
+        shptService.getListItemById = function (listTitle, itemId, queryParams) {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: shptService.appWebUrl + '/_api/SP.AppContextSite(@target)/web/Lists/getByTitle(\'' + listTitle + '\')/Items(' + itemId + ')?' + queryParams + '&@target=\'' + shptService.hostWebUrl + '\'',
+                headers: { Accept: 'application/json;odata=verbose' }
+            }).then(function sendResponseData(response) {
+                deferred.resolve(response.data.d);
+            }).catch(function handleError(response) {
+                deferred.reject(response.data.error.message.value);
+            });
+            return deferred.promise;
+        };
+
         shptService.getListItems = function (listTitle, queryParams) {
-            return $http({
+            var deferred = $q.defer();
+            $http({
                 method: 'GET',
                 url: shptService.appWebUrl + '/_api/SP.AppContextSite(@target)/web/Lists/getByTitle(\'' + listTitle + '\')/Items?' + queryParams + '&$top=5000&@target=\'' + shptService.hostWebUrl + '\'',
                 headers: { Accept: 'application/json;odata=verbose' }
             }).then(function sendResponseData(response) {
-                return response.data.d;
+                deferred.resolve(response.data.d);
             }).catch(function handleError(response) {
-                $log.error(response);
-                return $q.reject(response.data.error.message.value);
+                deferred.reject(response.data.error.message.value);
             });
+            return deferred.promise;
+        };
+
+        shptService.getGroupMembers = function (groupName, queryParams) {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: shptService.appWebUrl + '/_api/SP.AppContextSite(@target)/web/SiteGroups/GetByName(\'' + groupName + '\')/users?' + queryParams + '&$top=5000&@target=\'' + shptService.hostWebUrl + '\'',
+                headers: { Accept: 'application/json;odata=verbose' }
+            }).then(function sendResponseData(response) {
+                deferred.resolve(response.data.d);
+            }).catch(function handleError(response) {
+                deferred.reject(response.data.error.message.value);
+            });
+            return deferred.promise;
         };
 
         /*
@@ -469,6 +503,132 @@ angular
             return deferred.promise;
         };
 
+        shptService.uploadFileToDocumentLibrary = function (listTitle, folderUrl, file, bodyContent) {
+            var operationUri, defFiles, itemTypeForListName;
+            defFiles = $q.defer();
+            shptService
+                .getFileBuffer(file._file)
+                .then(function (buffer) {
+                    var promises = [];
+                    promises.push(shptService.retrieveFormDigest());
+                    promises.push(shptService.getItemTypeForListName(listTitle));
+
+                    $q
+                        .all(promises)
+                        .then(function (promiseResults) {
+                            formDigestValue = promiseResults[0];
+                            itemTypeForListName = promiseResults[1];
+                            operationUri = shptService.appWebUrl + "/_api/SP.AppContextSite(@target)/web/getfolderbyserverrelativeurl('" + listTitle + "/" + folderUrl + "')/files"
+                                + "/add(overwrite=false, url='" + file.name + "')?@target='" + shptService.hostWebUrl + "'";
+                            $http({
+                                url: operationUri,
+                                method: "POST",
+                                binaryStringRequestBody: true,
+                                data: buffer,
+                                processData: false,
+                                transformRequest: angular.identity,
+                                headers: {
+                                    "Accept": "application/json;odata=verbose",
+                                    "Content-Type": "application/json;odata=verbose",
+                                    "Content-Length": file.byteLength,
+                                    "X-RequestDigest": formDigestValue
+                                }
+                            }).then(function (response) {
+                                shptService
+                                    .getUploadedFile(response.data.d.ListItemAllFields.__deferred.uri)
+                                    .then(function (upFile) {
+                                        var fileId = upFile.Id;
+                                        shptService
+                                            .updateUploadedFile(upFile.__metadata, bodyContent)
+                                            .then(function (fileRes) {
+                                                defFiles.resolve(fileId);
+                                            })
+                                            .catch(function (res) {
+                                                defFiles.reject('Error: Response Status: ' + res.status + '. Erro Message: ' + res.data.error.message.value);
+                                            });
+                                    })
+                                    .catch(function (response) {
+                                        defFiles.reject('Error: Response Status: ' + response.status + '. Erro Message: ' + response.data.error.message.value);
+                                    });
+
+                            }).catch(function (response) {
+                                defFiles.reject('Error: Response Status: ' + response.status + '. Erro Message: ' + response.data.error.message.value);
+                            });
+                        });
+                });
+            return defFiles.promise;
+        };
+
+        shptService.getFileBuffer = function (file) {
+            var deferred = $q.defer();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                deferred.resolve(e.target.result);
+            };
+            reader.onerror = function (e) {
+                deferred.reject(e.target.error);
+            };
+            reader.readAsArrayBuffer(file);
+            return deferred.promise;
+        };
+
+        shptService.getUploadedFile = function (fileListItemUri) {
+            var deferFileUpload = $q.defer();
+            fileListItemUri = fileListItemUri.replace(shptService.hostWebUrl, '{0}');
+            fileListItemUri = fileListItemUri.replace('_api/Web', '_api/sp.appcontextsite(@target)/web');
+            var listItemAllFieldsEndpoint = String.format(fileListItemUri + "?@target='{1}'", shptService.appWebUrl, shptService.hostWebUrl);
+            $http({
+                url: listItemAllFieldsEndpoint,
+                method: "GET",
+                headers: {
+                    "Accept": "application/json;odata=verbose",
+                }
+            }).then(function (response) {
+                deferFileUpload.resolve(response.data.d);
+            }).catch(function (response) {
+                deferFileUpload.reject('Error: Response Status: ' + response.status + '. Erro Message: ' + response.data.error.message.value);
+            });
+            return deferFileUpload.promise;
+        };
+
+        shptService.updateUploadedFile = function (itemMetadata, bodyContent) {
+            var listItemUri = itemMetadata.uri.replace('_api/Web', '_api/sp.appcontextsite(@target)/web');
+            var listItemEndpoint = String.format(listItemUri + "?@target='{0}'", shptService.hostWebUrl);
+            var deferUpdateFileMetadata = $q.defer();
+
+            var promises = [];
+            promises.push(shptService.retrieveFormDigest());
+            promises.push(shptService.retrieveETagValue(listItemEndpoint));
+
+            $q
+                .all(promises)
+                .then(function (promiseResults) {
+                    formDigestValue = promiseResults[0];
+                    eTag = promiseResults[1];
+                    bodyContent.__metadata = {
+                        'type': itemMetadata.type
+                    };
+                    $http({
+                        url: listItemEndpoint,
+                        method: "POST",
+                        headers: {
+                            "Accept": "application/json;odata=verbose",
+                            "content-type": "application/json;odata=verbose",
+                            "content-length": bodyContent.length,
+                            "X-RequestDigest": formDigestValue,
+                            "X-HTTP-Method": "MERGE",
+                            "IF-MATCH": eTag
+                        },
+                        data: JSON.stringify(bodyContent)
+                    }).then(function (response) {
+                        deferUpdateFileMetadata.resolve(response);
+                    }).catch(function (response) {
+                        deferUpdateFileMetadata.reject('Error: Response Status: ' + response.status + '. Erro Message: ' + response.data.error.message.value);
+                    });
+                });
+            return deferUpdateFileMetadata.promise;
+        };
+
         shptService.updateListItem = function (listTitle, itemId, bodyContent) {
             var operationUri, deferred, itemTypeForListName;
             var promises = [];
@@ -496,7 +656,7 @@ angular
                         "X-HTTP-Method": "MERGE",
                         "IF-MATCH": eTag
                     },
-                    data: bodyContent
+                    data: JSON.stringify(bodyContent)
                 }).then(function (response) {
                     deferred.resolve('Response Status: ' + response.status);
                 }).catch(function (response, errorCode, errorMessage) {

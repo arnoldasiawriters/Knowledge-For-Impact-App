@@ -7,7 +7,8 @@
         <div class="col-md-9">
             <div class="admin-body">
                 <div class="panel panel-info">
-                    <div class="panel-heading pnl-heading">ADD PROJECT INFORMATION</div>
+                    <div ng-if="ctrl.action == 'add'" class="panel-heading pnl-heading">ADD PROJECT INFORMATION</div>
+                    <div ng-if="ctrl.action == 'edit'" class="panel-heading pnl-heading">EDIT PROJECT INFORMATION</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -16,7 +17,8 @@
                                     <input class="form-control"
                                            type="text"
                                            ng-model="ctrl.project.title"
-                                           ng-required="true">
+                                           ng-required="true"
+                                           ng-readonly="ctrl.action == 'edit'">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -25,8 +27,9 @@
                                     <input class="form-control"
                                            type="text"
                                            ng-model="ctrl.project.code"
-                                           ng-required="true">
-                                </div>                                
+                                           ng-required="true"
+                                           ng-readonly="ctrl.action == 'edit'">
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -65,15 +68,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">ME Person:</label>
-                                        <sp-people-picker name="meperson" 
-                                                          ng-model="ctrl.project.meperson" 
-                                                          max-entries="5" 
-                                                          allow-duplicates="false" 
-                                                          show-login="false" 
-                                                          show-title="true" 
-                                                          min-characters="3" 
-                                                          min-entries="1" 
-                                                          app-web-url="ctrl.hostWebUrl" />
+                                    <sp-people-picker name="meperson"
+                                                      ng-model="ctrl.project.meperson"
+                                                      max-entries="5"
+                                                      allow-duplicates="false"
+                                                      show-login="false"
+                                                      show-title="true"
+                                                      min-characters="3"
+                                                      min-entries="1"
+                                                      app-web-url="ctrl.hostWebUrl" />
                                 </div>
                             </div>
                         </div>

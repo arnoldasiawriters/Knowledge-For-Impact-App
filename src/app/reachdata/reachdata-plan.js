@@ -36,8 +36,11 @@
                 spinnerService.closeAll();
             })
             .catch(function (error) {
-                defer.reject(error);
-            });
+                UtilService.showErrorMessage('#notification-area', error);
+            })
+            .finally(function () {
+                spinnerService.closeAll();
+            });;
 
         ctrl.scrollToTop = function () {
             $location.hash('planReachData');
@@ -79,25 +82,38 @@
                 return;
             }
 
-
-            $dialogConfirm('Add Record?', 'Confirm Transaction')
-                .then(function () {
-                    //ctrl.scrollToTop();
-                    spinnerService.show('spinner1');
-                    reachdatasvc
-                        .addReachDataPlans(ctrl.reachdata)
-                        .then(function (res) {
-                            ctrl.reachdata = {};
-                            setTables();
-                            UtilService.showSuccessMessage('#notification-area', 'Plans for the project for the periods added Successfully!');
-                        })
-                        .catch(function (error) {
-                            UtilService.showErrorMessage('#notification-area', error);
-                        })
-                        .finally(function () {
-                            spinnerService.closeAll();
+            reachdatasvc
+                .checkIfReachDataPlanExists(ctrl.reachdata.year, ctrl.reachdata.project)
+                .then(function (rslt) {
+                    if (rslt) {
+                        $dialogAlert("Planning for the project for the year is already done! Update the plan instead of adding a new one.", "Missing Details");
+                        return;
+                    }
+                    $dialogConfirm('Add Records?', 'Confirm Transaction')
+                        .then(function () {
+                            ctrl.scrollToTop();
+                            spinnerService.show('spinner1');
+                            reachdatasvc
+                                .addReachDataPlans(ctrl.reachdata)
+                                .then(function (res) {
+                                    ctrl.reachdata = {};
+                                    setTables();
+                                    UtilService.showSuccessMessage('#notification-area', 'Plans for the project for the periods added Successfully!');
+                                })
+                                .catch(function (error) {
+                                    UtilService.showErrorMessage('#notification-area', error);
+                                })
+                                .finally(function () {
+                                    spinnerService.closeAll();
+                                });
                         });
-                });
+                })
+                .catch(function (error) {
+                    UtilService.showErrorMessage('#notification-area', error);
+                })
+                .finally(function () {
+                    spinnerService.closeAll();
+                });            
         };
 
         function setTables() {
