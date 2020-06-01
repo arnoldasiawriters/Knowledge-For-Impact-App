@@ -30,11 +30,12 @@
                         .then(function (rdpres) {
                             var i = 0;
                             _.forEach(rdpres, function (d) {
+                                retData[i].curusermeperson = _.some(retData[i].meperson, ['id', svc.userid]);
                                 if (d.results.length > 0) {
                                     retData[i].submitted = "YES";
                                     retData[i].status = d.results[0].Status;
-                                    retData[i].mereport = [];
-                                    retData[i].mereport.push({ id: d.results[0].MEPerson.Id, title: d.results[0].MEPerson.Title });
+                                    retData[i].meperson = [];
+                                    retData[i].meperson.push({ id: d.results[0].MEPerson.Id, title: d.results[0].MEPerson.Title });
                                 } else {
                                     retData[i].submitted = "NO";
                                     retData[i].status = "";
@@ -387,7 +388,7 @@
             var defRDComments = $q.defer();
             var reachDataComments = [];
             var qParams = "$select=Id,Title,Comment,CommentBy/Id,CommentBy/Title,CommentDate,Quarter/Id,Quarter,Title,Project/Id,Project/Title," +
-                "UserType&$expand=Quarter,Project,CommentBy&$filter=Project/Id eq " + project.id + " and Quarter/Id eq " + quarter.id;
+                "UserType,CommentSubject&$expand=Quarter,Project,CommentBy&$filter=Project/Id eq " + project.id + " and Quarter/Id eq " + quarter.id;
             ShptRestService
                 .getListItems("ReachDataComments", qParams)
                 .then(function (data) {
@@ -401,6 +402,7 @@
                         obj.project = _.isNil(o.Project) ? '' : { id: o.Project.Id, title: o.Project.Title };
                         obj.quarter = _.isNil(o.Quarter) ? '' : { id: o.Quarter.Id, title: o.Quarter.Title };
                         obj.usertype = o.UserType;
+                        obj.subject = o.CommentSubject;
                         reachDataComments.push(obj);
                     });
                     defRDComments.resolve(reachDataComments);
@@ -411,15 +413,19 @@
             return defRDComments.promise;
         };
 
-        svc.addReachDataComments = function (quarter, project, comment) {
+        svc.addReachDataComments = function (quarter, project, comment, subject) {
             var defRDCommentsAdd = $q.defer();
+            if (_.isNil(subject)) {
+                subject = "Scale and Reach Data Comment Received";
+            }
             var data = {
                 Title: "Comment for ReachData for Quarter " + quarter.title + " Project " + project.title,
                 Comment: comment,
                 CommentDate: new Date(),
                 CommentById: svc.userid,
                 ProjectId: project.id,
-                QuarterId: quarter.id
+                QuarterId: quarter.id,
+                CommentSubject: subject
             };
             var qParams = "$select=Id";
             ShptRestService

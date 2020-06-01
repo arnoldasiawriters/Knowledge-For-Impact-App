@@ -46,6 +46,7 @@
     <script type="text/javascript" src="common/services/grants.js"></script>
     <script type="text/javascript" src="common/services/projects.js"></script>
     <script type="text/javascript" src="common/services/doctypes.js"></script>
+    <script type="text/javascript" src="common/services/settings.js"></script>
 
     <!--Directives-->
     <script type="text/javascript" src="common/directives/ng-file-model.js"></script>
@@ -65,6 +66,7 @@
     <script type="text/javascript" src="app/adm-programmes/programmes.js"></script>
     <script type="text/javascript" src="app/adm-doctypes/doctypes.js"></script>
     <script type="text/javascript" src="app/adm-projects/projects.js"></script>
+    <script type="text/javascript" src="app/adm-settings/settings.js"></script>
     <script type="text/javascript" src="app/reachdata/reachdata-add.js"></script>
     <script type="text/javascript" src="app/reachdata/reachdata-plan.js"></script>
     <script type="text/javascript" src="app/reachdata/reachdata-db.js"></script>

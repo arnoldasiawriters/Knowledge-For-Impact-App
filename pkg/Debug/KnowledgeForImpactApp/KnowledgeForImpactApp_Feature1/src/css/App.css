@@ -70,6 +70,7 @@
 .huge {
     font-size: 30px;
 }
+
 .table-quarter {
     border: 1px solid #33CCFF;
     padding: 10px;
@@ -123,4 +124,22 @@ input[type=number] {
 
 .font-bold {
     font-weight: bold;
+}
+
+.settings .active, .inactive {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.settings .active, .inactive {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.settings i.active {
+    color: #5cb85c
+}
+
+.settings i.inactive {
+    color: #d9534f
 }

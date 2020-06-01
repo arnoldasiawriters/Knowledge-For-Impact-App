@@ -1,0 +1,75 @@
+﻿<div class="bootstrap-iso">
+    <div class="col-md-12">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Send Message to ME Person/s for this Project</h3>
+            </div>
+            <form method="post" name="frm" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label requiredField">
+                                    Financial Year:
+                                </label>
+                                <input class="form-control" type="text" ng-model="comment.year.title" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label requiredField">
+                                    Financial Quarter:
+                                </label>
+                                <input class="form-control" type="text" ng-model="comment.quarter.title" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label requiredField">
+                                    Project Name:
+                                </label>
+                                <input class="form-control" type="text" ng-model="comment.project.title" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label requiredField">
+                                    Message Subject:<span class="asteriskField">*</span>
+                                </label>
+                                <input class="form-control" type="text" ng-model="comment.subject" required autofocus>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Enter the details of the Message.</label>
+                                <textarea class="form-control" rows="7" ng-model="comment.comment"> </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                    <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, comment);">
+                                        Send Message
+                                    </button>
+                                    <button class="btn btn-warning " name="submit" type="submit" ng-click="cancel()">
+                                        Cancel
+                                    </button>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

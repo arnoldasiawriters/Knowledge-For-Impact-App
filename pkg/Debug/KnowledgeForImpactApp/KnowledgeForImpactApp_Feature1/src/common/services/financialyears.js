@@ -7,7 +7,7 @@
 
 
     FinancialYearsSvc.$inject = ['$q', 'ShptRestService'];
-    function FinancialYearsSvc($q, ShptRestService){
+    function FinancialYearsSvc($q, ShptRestService) {
         var svc = this;
         var listname = 'FinancialYears';
         var curUserId = _spPageContextInfo.userId;
@@ -26,7 +26,7 @@
                         year.title = o.Title;
                         yearsList.push(year);
                     });
-                    defer.resolve(yearsList);
+                    defer.resolve(_.orderBy(yearsList, ['title'], ['asc']));
                 })
                 .catch(function (error) {
                     defer.reject("An error occured while fetching the items. Contact IT Service desk for support.");
@@ -49,7 +49,7 @@
                     .then(function (response) {
                         year.id = response.ID;
                         yearsList.push(year);
-                        defer.resolve(yearsList);
+                        defer.resolve(_.orderBy(yearsList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -68,7 +68,7 @@
                         _.remove(yearsList, {
                             id: id
                         });
-                        defer.resolve(yearsList);
+                        defer.resolve(_.orderBy(yearsList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);

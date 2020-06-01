@@ -5,8 +5,8 @@
         .module('programmes', [])
         .controller('programmesCtrl', ProgrammesCtrl);
 
-    ProgrammesCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$location', 'programmesSvc', 'spinnerService', 'UtilService'];
-    function ProgrammesCtrl($q, $dialogConfirm, $route, $location, programmesSvc, spinnerService, UtilService) {
+    ProgrammesCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$location', 'programmesSvc', 'spinnerService', 'UtilService' ,'growl'];
+    function ProgrammesCtrl($q, $dialogConfirm, $route, $location, programmesSvc, spinnerService, UtilService, growl) {
         var ctrl = this;
         ctrl.programme = {};
         ctrl.action = $route.current.$$route.param;
@@ -25,7 +25,7 @@
                 ctrl.programmes = data[0];
             })
             .catch(function (error) {
-                UtilService.showErrorMessage('#notification-area', error);
+                growl.error(error);
             })
             .finally(function () {
                 spinnerService.closeAll();
@@ -42,11 +42,11 @@
                         .AddItem(ctrl.programme)
                         .then(function (res) {
                             ctrl.programmes = res;
-                            UtilService.showSuccessMessage('#notification-area', 'Record added successfully!');
+                            growl.success('Record added successfully!');
                             $location.path("/listAdminProgrammes");
                         })
                         .catch(function (error) {
-                            UtilService.showErrorMessage('#notification-area', error);
+                            growl.error(error);
                         })
                         .finally(function () {
                             spinnerService.closeAll();
@@ -62,10 +62,10 @@
                         .DeleteItem(id)
                         .then(function (res) {
                             ctrl.programmes = res;
-                            UtilService.showSuccessMessage('#notification-area', 'Record deleted successfully!');
+                            growl.success('Record deleted successfully!');
                         })
                         .catch(function (error) {
-                            UtilService.showErrorMessage('#notification-area', error);
+                            growl.error(error);
                         })
                         .finally(function () {
                             spinnerService.closeAll();

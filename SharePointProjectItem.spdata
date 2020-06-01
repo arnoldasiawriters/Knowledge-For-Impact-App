@@ -66,8 +66,8 @@
     <ProjectItemFile Source="src\css\angular-growl.min.css" Target="src\css\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\directives\angular-growl.min.js" Target="src\common\directives\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\services\settings.js" Target="src\common\services\" Type="ElementFile" />
-    <ProjectItemFile Source="src\app\adm-settings\settings-add.tpl.html" Target="src\app\adm-settings\" Type="ElementFile" />
     <ProjectItemFile Source="src\app\adm-settings\settings-list.tpl.html" Target="src\app\adm-settings\" Type="ElementFile" />
     <ProjectItemFile Source="src\app\adm-settings\settings.js" Target="src\app\adm-settings\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\reachdata\reachdata-db-sendmsg.html" Target="src\app\reachdata\" Type="ElementFile" />
   </Files>
 </ProjectItem>

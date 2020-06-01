@@ -5,8 +5,8 @@
         .module('reachdata', [])
         .controller('reachDataCtrl', ReachDataCtrl);
 
-    ReachDataCtrl.$inject = ['$q', '$location', '$routeParams', '$route', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'quartersSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'UtilService'];
-    function ReachDataCtrl($q, $location, $routeParams, $route, reachdatasvc, YearsSvc, programmesSvc, quartersSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, UtilService) {
+    ReachDataCtrl.$inject = ['$q', '$route', '$dialog', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'quartersSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'settingsSvc', 'spinnerService', 'growl'];
+    function ReachDataCtrl($q, $route, $dialog, reachdatasvc, YearsSvc, programmesSvc, quartersSvc, countriesSvc, grantsSvc, projectsSvc, settingsSvc, spinnerService, growl) {
         spinnerService.show('spinner1');
         var ctrl = this;
         ctrl.userid = _spPageContextInfo.userId;
@@ -20,7 +20,8 @@
         ctrl.submitted = 0;
         ctrl.pending = 0;
         ctrl.review = 0;
-        ctrl.approved = 0;        
+        ctrl.approved = 0;
+        ctrl.isAdmin = false;
 
         var promises = [];
         promises.push(YearsSvc.getAllItems());
@@ -28,6 +29,7 @@
         promises.push(countriesSvc.getAllItems());
         promises.push(grantsSvc.getAllItems());
         promises.push(projectsSvc.getAllItems());
+        promises.push(settingsSvc.checkIfCurrentUserIsAdmin());
         $q
             .all(promises)
             .then(function (results) {
@@ -35,10 +37,11 @@
                 ctrl.programmes = results[1];
                 ctrl.countries = results[2];
                 ctrl.grants = results[3];
-                ctrl.projects = results[4];                
+                ctrl.projects = results[4];
+                ctrl.isAdmin = results[5];
             })
             .catch(function (error) {
-                UtilService.showErrorMessage('#notification-area', error);
+                growl.error(error);
             })
             .finally(function () {
                 spinnerService.closeAll();
@@ -54,7 +57,7 @@
                         ctrl.quarters = res;
                     })
                     .catch(function (error) {
-                        console.log('An Error Occured!', error);
+                        growl.error(error);
                     })
                     .finally(function () {
                         spinnerService.closeAll();
@@ -79,7 +82,7 @@
                     ctrl.approved = _.filter(retdat, ['status', 'Approved']).length;
                 })
                 .catch(function (error) {
-                    console.log('An Error Occured!', error);
+                    growl.error(error);
                 })
                 .finally(function () {
                     spinnerService.closeAll();
@@ -134,6 +137,29 @@
         ctrl.uploadExcelTemplate = function () {
 
         };
-       
+
+        ctrl.sendUserMessage = function (projectId, projectTitle) {
+            var comment = {};
+            comment.year = ctrl.reachdata.year;
+            comment.quarter = ctrl.reachdata.quarter;
+            comment.project = { "id": projectId, "title": projectTitle };
+            
+            var commentDW = { scopeVariableName: 'comment', dataObject: comment };
+            $dialog('app/reachdata/reachdata-db-sendmsg.html', 'lg', commentDW)
+                .then(function (comment) {
+                    spinnerService.show('spinner1');
+                    reachdatasvc
+                        .addReachDataComments(comment.quarter, comment.project, comment.comment, comment.subject)
+                        .then(function (upDoc) {
+                            growl.success("Message sent to the Project ME Person Successfully!");
+                        })
+                        .catch(function (error) {
+                            growl.error(error);
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
+                });
+        };
     }
 })();

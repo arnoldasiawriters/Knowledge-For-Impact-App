@@ -5,8 +5,8 @@
         .module('countries', [])
         .controller('countriesCtrl', CountriesCtrl);
 
-    CountriesCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$location', 'countriesSvc', 'spinnerService', 'UtilService'];
-    function CountriesCtrl($q, $dialogConfirm, $route, $location, countriesSvc, spinnerService, UtilService) {
+    CountriesCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$location', 'countriesSvc', 'spinnerService', 'UtilService', 'growl'];
+    function CountriesCtrl($q, $dialogConfirm, $route, $location, countriesSvc, spinnerService, UtilService, growl) {
         var ctrl = this;
         ctrl.country = {};
         ctrl.action = $route.current.$$route.param;
@@ -25,7 +25,7 @@
                 ctrl.countries = data[0];
             })
             .catch(function (error) {
-                UtilService.showErrorMessage('#notification-area', error);
+                growl.error(error);
             })
             .finally(function () {
                 spinnerService.closeAll();
@@ -43,11 +43,11 @@
                         .AddItem(ctrl.country)
                         .then(function (res) {
                             ctrl.countries = res;
-                            UtilService.showSuccessMessage('#notification-area', 'Record added successfully!');
+                            growl.success('Record added successfully!');
                             $location.path("/listAdminCountries");
                         })
                         .catch(function (error) {
-                            UtilService.showErrorMessage('#notification-area', error);
+                            growl.error(error);
                         })
                         .finally(function () {
                             spinnerService.closeAll();
@@ -63,10 +63,10 @@
                         .DeleteItem(id)
                         .then(function (res) {
                             ctrl.countries = res;
-                            UtilService.showSuccessMessage('#notification-area', 'Record deleted successfully!');
+                            growl.success("Record deleted successfully!");
                         })
                         .catch(function (error) {
-                            UtilService.showErrorMessage('#notification-area', error);
+                            growl.error(error);
                         })
                         .finally(function () {
                             spinnerService.closeAll();

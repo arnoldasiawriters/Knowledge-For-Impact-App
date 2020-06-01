@@ -79,6 +79,10 @@
     <ElementFile Location="src\images\userImage.png" />
     <ElementFile Location="src\css\angular-growl.min.css" />
     <ElementFile Location="src\common\directives\angular-growl.min.js" />
+    <ElementFile Location="src\common\services\settings.js" />
+    <ElementFile Location="src\app\adm-settings\settings-list.tpl.html" />
+    <ElementFile Location="src\app\adm-settings\settings.js" />
+    <ElementFile Location="src\app\reachdata\reachdata-db-sendmsg.html" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

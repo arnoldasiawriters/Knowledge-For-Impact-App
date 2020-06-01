@@ -5,8 +5,8 @@
         .module('reachdata-plan', [])
         .controller('reachDataPlanCtrl', ReachDataCtrl);
 
-    ReachDataCtrl.$inject = ['$q', '$dialogConfirm', '$dialogAlert', 'UtilService', '$route', '$location', '$anchorScroll', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService'];
-    function ReachDataCtrl($q, $dialogConfirm, $dialogAlert, UtilService, $route, $location, $anchorScroll, reachdatasvc, YearsSvc, programmesSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService) {
+    ReachDataCtrl.$inject = ['$q', '$dialogConfirm', '$dialogAlert', '$route', '$location', '$anchorScroll', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'growl'];
+    function ReachDataCtrl($q, $dialogConfirm, $dialogAlert, $route, $location, $anchorScroll, reachdatasvc, YearsSvc, programmesSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, growl) {
         var ctrl = this;
         ctrl.userid = _spPageContextInfo.userId;
         ctrl.action = $route.current.$$route.param;
@@ -36,7 +36,7 @@
                 spinnerService.closeAll();
             })
             .catch(function (error) {
-                UtilService.showErrorMessage('#notification-area', error);
+                growl.error(error);
             })
             .finally(function () {
                 spinnerService.closeAll();
@@ -98,10 +98,10 @@
                                 .then(function (res) {
                                     ctrl.reachdata = {};
                                     setTables();
-                                    UtilService.showSuccessMessage('#notification-area', 'Plans for the project for the periods added Successfully!');
+                                    growl.success('Plans for the project for the periods added Successfully!');
                                 })
                                 .catch(function (error) {
-                                    UtilService.showErrorMessage('#notification-area', error);
+                                    growl.error(error);
                                 })
                                 .finally(function () {
                                     spinnerService.closeAll();
@@ -109,11 +109,11 @@
                         });
                 })
                 .catch(function (error) {
-                    UtilService.showErrorMessage('#notification-area', error);
+                    growl.error(error);
                 })
                 .finally(function () {
                     spinnerService.closeAll();
-                });            
+                });
         };
 
         function setTables() {

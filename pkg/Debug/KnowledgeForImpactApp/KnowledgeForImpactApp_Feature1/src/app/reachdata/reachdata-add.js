@@ -5,8 +5,8 @@
         .module('reachdata-add', [])
         .controller('reachDataAddCtrl', ReachDataCtrl);
 
-    ReachDataCtrl.$inject = ['$q', '$location', '$dialogAlert', '$dialogConfirm', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'docTypesSvc', 'quartersSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'growl'];
-    function ReachDataCtrl($q, $location, $dialogAlert, $dialogConfirm, reachdatasvc, YearsSvc, programmesSvc, docTypesSvc, quartersSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, growl) {
+    ReachDataCtrl.$inject = ['$q', '$dialogAlert', '$dialogConfirm', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'docTypesSvc', 'quartersSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'growl'];
+    function ReachDataCtrl($q, $dialogAlert, $dialogConfirm, reachdatasvc, YearsSvc, programmesSvc, docTypesSvc, quartersSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, growl) {
         spinnerService.show('spinner1');
         var ctrl = this;
         ctrl.userid = _spPageContextInfo.userId;
@@ -87,7 +87,7 @@
                         ctrl.comments = results[4];
                         ctrl.projectMEPerson = _.some(results[5], ['id', ctrl.userid]);
                         var plannedTRData = CheckIfDataIsThere(ctrl.tablesDataTRPlan);
-                        var plannedNRData = CheckIfDataIsThere(ctrl.tablesDataNRPlan);                        
+                        var plannedNRData = CheckIfDataIsThere(ctrl.tablesDataNRPlan);
 
                         if (plannedTRData.total <= 0 && plannedTRData.pwdtotal <= 0 && plannedNRData.total <= 0 && plannedNRData.pwdtotal <= 0) {
                             ctrl.planningDataAvalable = false;
@@ -126,11 +126,6 @@
             data.total = female + male + other;
             data.pwdtotal = pwdfemale + pwdmale + pwdother;
         };
-
-        //ctrl.scrollToTop = function () {
-        //    $location.hash('planReachData');
-        //    $anchorScroll();
-        //};
 
         ctrl.submitReachDataActuals = function () {
             var returnMsg = checkSelections();
@@ -258,7 +253,7 @@
                         })
                         .finally(function () {
                             spinnerService.closeAll();
-                        });;
+                        });
                 });
         };
 
@@ -292,7 +287,7 @@
             if (!ctrl.comment) {
                 $dialogAlert("Kindly provide the comment you want to add!", "Missing Details");
                 return;
-            } 
+            }
 
             $dialogConfirm('Add Comment?', 'Confirm Transaction')
                 .then(function () {

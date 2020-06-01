@@ -4,8 +4,8 @@
     angular
         .module('app', ['ngRoute', 'ngAnimate', 'directives.dirPagination', 'ui.bootstrap', 'ui.bootstrap.dialogs', 'selectFile', 'services.utilities', 'spNgModule', 'sarsha.spinner',
             'services.reachdata', 'services.years', 'services.programmes', 'services.doctypes', 'services.quarters', 'services.countries', 'services.grants', 'angular-growl',
-            'services.projects', 'dir.adminmenu', 'dir.backbtn', 'dir.addbtn', 'dir.tbl-headers', 'dir.tbl-headers-cols', 'financialyears', 'countries', 'grants',
-            'programmes', 'doctypes', 'projects', 'quarters', 'reachdata-add', 'reachdata-plan', 'reachdata', 'sp-peoplepicker'])
+            'services.projects', 'services.settings', 'dir.adminmenu', 'dir.backbtn', 'dir.addbtn', 'dir.tbl-headers', 'dir.tbl-headers-cols', 'financialyears', 'countries', 'grants',
+            'programmes', 'doctypes', 'projects', 'quarters', 'reachdata-add', 'reachdata-plan', 'settings', 'reachdata', 'sp-peoplepicker'])
         .constant("IS_APP_WEB", false)
         .config(['growlProvider', GrowlProvider])
         .config(['$routeProvider', RouteProvider]);
@@ -73,6 +73,12 @@
                 templateUrl: 'app/adm-doctypes/doctypes-add.tpl.html',
                 controller: 'docTypesCtrl as ctrl'
             })
+            /* Admin System Settings */
+            .when('/listAdminSettings', {
+                templateUrl: 'app/adm-settings/settings-list.tpl.html',
+                controller: 'settingsCtrl as ctrl',
+                param: 'list'
+            })
             /* Admin Countries */
             .when('/listAdminCountries', {
                 templateUrl: 'app/adm-countries/countries-list.tpl.html',
@@ -116,7 +122,7 @@
 
     GrowlProvider.$inject = ['growlProvider'];
     function GrowlProvider(growlProvider) {
-        growlProvider.globalTimeToLive({ success: -1, error: -1, warning: 8000, info: 8000 });
+        growlProvider.globalTimeToLive({ success: -1, error: -1, warning: 20000, info: 20000 });
         //growlProvider.globalTimeToLive(-1);
         growlProvider.globalDisableCountDown(true);
     }

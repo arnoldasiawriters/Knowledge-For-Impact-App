@@ -102,13 +102,14 @@ angular
           */
         utilService.getAppShortcutlinks = function (activeLinkId) {
             var links = [
-                { 'id': 1, title: 'Financial Years', icon: 'fa-dollar-sign', url: '#listAdminFinancialYears', class: '' },
-                { 'id': 2, title: 'Quarters', icon: 'fa-border-all', url: '#listAdminQuarters', class: '' },
+                { 'id': 1, title: 'Financial Years', icon: 'fa-calendar', url: '#listAdminFinancialYears', class: '' },
+                { 'id': 2, title: 'Quarters', icon: 'fa-calendar-check-o', url: '#listAdminQuarters', class: '' },
                 { 'id': 3, title: 'Countries', icon: 'fa-flag', url: '#listAdminCountries', class: '' },
-                { 'id': 4, title: 'Grants', icon: 'fa-euro-sign', url: '#listAdminGrants', class: '' },
-                { 'id': 5, title: 'Programmes', icon: 'fa-book', url: '#listAdminProgrammes', class: '' },
+                { 'id': 4, title: 'Grants', icon: 'fa-eur', url: '#listAdminGrants', class: '' },
+                { 'id': 5, title: 'Programmes', icon: 'fa-files-o ', url: '#listAdminProgrammes', class: '' },
                 { 'id': 6, title: 'Projects', icon: 'fa-users', url: '#listAdminProjects', class: '' },
-                { 'id': 7, title: 'Document Types', icon: 'fa-book', url: '#listAdminDocTypes', class: '' }];
+                { 'id': 7, title: 'Document Types', icon: 'fa-book', url: '#listAdminDocTypes', class: '' },
+                { 'id': 8, title: 'System Settings', icon: 'fa-cogs', url: '#listAdminSettings', class: '' }];
 
             var activeLink = _.find(links, ['id', activeLinkId]);
             activeLink.class = "button-active";
@@ -293,8 +294,6 @@ angular
         var shptService = {};
         shptService.appWebUrl = decodeURIComponent(UtilService.getQueryStringParameter('SPAppWebUrl')).split('#')[0];
         shptService.hostWebUrl = decodeURIComponent(UtilService.getQueryStringParameter('SPHostUrl')).split('#')[0];
-
-
 
         shptService.getListItemById = function (listTitle, itemId, queryParams) {
             var deferred = $q.defer();

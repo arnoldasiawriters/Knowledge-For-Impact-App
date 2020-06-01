@@ -14,7 +14,7 @@
                 <i class="fa fa-book"></i>
                 View Reports
             </a>
-            <a href="#listAdminFinancialYears" class="btn btn-sm btn-danger">
+            <a href="#listAdminFinancialYears" class="btn btn-sm btn-danger" ng-if="ctrl.isAdmin">
                 <i class="fa fa-cog"></i>
                 Administration
             </a>
@@ -232,11 +232,16 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#viewEmergency/{{reachdata.id}}">Review</a></li>
+                                <li><a href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.submitted == 'Yes' && ctrl.isAdmin && reachdata.status == 'Pending'">Review</a></li>
                                 <li><a href="#viewEmergency/{{reachdata.id}}">View Plan</a></li>
-                                <li><a href="#viewEmergency/{{reachdata.id}}">View Actuals</a></li>
-                                <li><a href="#viewEmergency/{{reachdata.id}}">Edit Plan</a></li>
-                                <li><a href="#viewEmergency/{{reachdata.id}}">Edit Actuals</a></li>
+                                <li><a href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.submitted == 'Yes'">View Actuals</a></li>
+                                <li><a href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.curusermeperson && reachdata.status != 'Approved'">Edit Plan</a></li>
+                                <li>
+                                    <a href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.curusermeperson && reachdata.status != 'Approved' && reachdata.submitted == 'Yes'">
+                                        Edit Actuals
+                                    </a>
+                                </li>
+                                <li><a href="" ng-click="ctrl.sendUserMessage(reachdata.id, reachdata.title)" ng-if="ctrl.isAdmin && reachdata.status != 'Approved'">Send Message</a></li>
                             </ul>
                         </div>
                     </td>
