@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="2802c1d5-8564-47d8-af70-1fe827eec7ba" Scope="Web" Title="KnowledgeForImpactApp Feature1" Version="1.0.0.0">
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="2802c1d5-8564-47d8-af70-1fe827eec7ba" Scope="Web" Title="KnowledgeForImpactApp Feature1" Version="1.0.0.1">
   <ElementManifests>
     <ElementManifest Location="Pages\Elements.xml" />
     <ElementManifest Location="Scripts\Elements.xml" />

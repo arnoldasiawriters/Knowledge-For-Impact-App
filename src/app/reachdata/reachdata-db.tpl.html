@@ -23,7 +23,7 @@
                     Upload Excel <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ctrl.hostWebUrl}}/TestDocuments/Scale and Reach Data Uplod Template.xlsx">Download Excel Template</a></li>
+                    <li><a href="{{ctrl.hostWebUrl}}/ScaleandReachTemplates/Scale and Reach Data Upload Template.xlsx">Download Excel Template</a></li>
                     <li><a href="" ng-click="ctrl.uploadExcelTemplate()">Upload Excel Template</a></li>
                 </ul>
             </div>
@@ -232,12 +232,12 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.submitted == 'Yes' && ctrl.isAdmin && reachdata.status == 'Pending'">Review</a></li>
-                                <li><a href="#viewEmergency/{{reachdata.id}}">View Plan</a></li>
-                                <li><a href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.submitted == 'Yes'">View Actuals</a></li>
-                                <li><a href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.curusermeperson && reachdata.status != 'Approved'">Edit Plan</a></li>
+                                <li><a href="" ng-click="ctrl.uploadExcelTemplate()" ng-if="reachdata.submitted == 'Yes' && ctrl.isAdmin && reachdata.status == 'Pending'">Review</a></li>
+                                <li><a href="" ng-click="ctrl.uploadExcelTemplate()">View Plan</a></li>
+                                <li><a href="" ng-click="ctrl.uploadExcelTemplate()" ng-if="reachdata.submitted == 'Yes'">View Actuals</a></li>
+                                <li><a href="" ng-click="ctrl.uploadExcelTemplate()" ng-if="reachdata.curusermeperson && reachdata.status != 'Approved'">Edit Plan</a></li>
                                 <li>
-                                    <a href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.curusermeperson && reachdata.status != 'Approved' && reachdata.submitted == 'Yes'">
+                                    <a ng-click="ctrl.uploadExcelTemplate()" href="#viewEmergency/{{reachdata.id}}" ng-if="reachdata.curusermeperson && reachdata.status != 'Approved' && reachdata.submitted == 'Yes'">
                                         Edit Actuals
                                     </a>
                                 </li>

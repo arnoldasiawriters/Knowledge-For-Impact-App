@@ -91,7 +91,7 @@
                     }
                     $dialogConfirm('Add Records?', 'Confirm Transaction')
                         .then(function () {
-                            ctrl.scrollToTop();
+                            //ctrl.scrollToTop();
                             spinnerService.show('spinner1');
                             reachdatasvc
                                 .addReachDataPlans(ctrl.reachdata)

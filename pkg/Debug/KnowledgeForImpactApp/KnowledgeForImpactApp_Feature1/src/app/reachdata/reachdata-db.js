@@ -135,7 +135,7 @@
         };
 
         ctrl.uploadExcelTemplate = function () {
-
+            growl.info("This feature is not fully developed yet. Check it out after a few days.");
         };
 
         ctrl.sendUserMessage = function (projectId, projectTitle) {

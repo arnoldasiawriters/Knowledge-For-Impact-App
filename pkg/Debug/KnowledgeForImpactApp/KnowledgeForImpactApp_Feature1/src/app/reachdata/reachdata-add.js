@@ -5,8 +5,10 @@
         .module('reachdata-add', [])
         .controller('reachDataAddCtrl', ReachDataCtrl);
 
-    ReachDataCtrl.$inject = ['$q', '$dialogAlert', '$dialogConfirm', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'docTypesSvc', 'quartersSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'growl'];
-    function ReachDataCtrl($q, $dialogAlert, $dialogConfirm, reachdatasvc, YearsSvc, programmesSvc, docTypesSvc, quartersSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, growl) {
+    ReachDataCtrl.$inject = ['$q', '$dialogAlert', '$dialogConfirm', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'docTypesSvc',
+        'quartersSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'settingsSvc', 'growl'];
+    function ReachDataCtrl($q, $dialogAlert, $dialogConfirm, reachdatasvc, YearsSvc, programmesSvc, docTypesSvc,
+        quartersSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, settingsSvc, growl) {
         spinnerService.show('spinner1');
         var ctrl = this;
         ctrl.userid = _spPageContextInfo.userId;
@@ -19,7 +21,9 @@
         ctrl.tablesDataNRPlan = [];
         ctrl.document = {};
         ctrl.supportingDocs = [];
-        ctrl.planningDataAvalable = true;
+        ctrl.allowactualnoplan = 'Yes';
+        ctrl.allowactualnosupport = 'Yes';
+        ctrl.planningDataAvailable = true;
         ctrl.projectRDSubmitted = false;
         ctrl.projectMEPerson = false;
         ctrl.comments = [];
@@ -33,6 +37,7 @@
         promises.push(grantsSvc.getAllItems());
         promises.push(projectsSvc.getAllItems());
         promises.push(docTypesSvc.getAllItems());
+        promises.push(settingsSvc.getSettings());
         $q
             .all(promises)
             .then(function (results) {
@@ -42,6 +47,9 @@
                 ctrl.grants = results[3];
                 ctrl.projects = results[4];
                 ctrl.doctypes = results[5];
+                ctrl.allowactualnoplan = (_.find(results[6], ['code', 'SR001'])).value;
+                ctrl.allowactualnosupport = (_.find(results[6], ['code', 'SR002'])).value;
+                ctrl.settings = results[6];
             }).catch(function (error) {
                 growl.error(error);
             }).finally(function () {
@@ -90,10 +98,12 @@
                         var plannedNRData = CheckIfDataIsThere(ctrl.tablesDataNRPlan);
 
                         if (plannedTRData.total <= 0 && plannedTRData.pwdtotal <= 0 && plannedNRData.total <= 0 && plannedNRData.pwdtotal <= 0) {
-                            ctrl.planningDataAvalable = false;
-                            growl.warning("There is no planning data. You won't be able to submit your data!");
+                            ctrl.planningDataAvailable = false;
+                            if (ctrl.allowactualnoplan == 'No') {                               
+                                growl.warning("There is no planning data. You won't be able to submit your data!");
+                            }
                         } else {
-                            ctrl.planningDataAvalable = true;
+                            ctrl.planningDataAvailable = true;
                         }
 
                         if (ctrl.projectRDSubmitted) {
@@ -134,8 +144,13 @@
                 return;
             }
 
-            if (!ctrl.planningDataAvalable) {
+            if (!ctrl.planningDataAvailable &&  ctrl.allowactualnoplan == 'No') {
                 $dialogAlert("Kindly submit planning data for the selected period and project.", "Missing Details");
+                return;
+            }
+
+            if (ctrl.allowactualnosupport == 'No' && ctrl.supportingDocs.length <= 0) {
+                $dialogAlert("Kindly provide support documents for the selected period and project.", "Missing Details");
                 return;
             }
 
@@ -172,6 +187,7 @@
                             setTables();
                             ctrl.tablesDataTRPlan = [];
                             ctrl.tablesDataNRPlan = [];
+                            ctrl.supportingDocs = [];
                             growl.success("Actual Reach data for the project for the period added Successfully!");
                         })
                         .catch(function (error) {
