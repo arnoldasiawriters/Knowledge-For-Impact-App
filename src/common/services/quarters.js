@@ -30,7 +30,7 @@
                         quarter.abbr = o.Abbr;
                         quartersList.push(quarter);
                     });
-                    defer.resolve(quartersList);
+                    defer.resolve(_.orderBy(quartersList, ['code'], ['asc']));
                 })
                 .catch(function (error) {
                     defer.reject("An error occured while retrieving all items. Contact IT Service desk for support.");
@@ -92,7 +92,7 @@
                             .then(function (response) {
                                 quarter.id = response.ID;
                                 quartersList.push(quarter);
-                                defer.resolve(quartersList);
+                                defer.resolve(_.orderBy(quartersList, ['code'], ['asc']));
                             })
                             .catch(function (error) {
                                 console.log(error);
@@ -116,7 +116,7 @@
                         _.remove(quartersList, {
                             id: id
                         });
-                        defer.resolve(quartersList);
+                        defer.resolve(_.orderBy(quartersList, ['code'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);

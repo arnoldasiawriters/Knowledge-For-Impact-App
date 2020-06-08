@@ -3,7 +3,7 @@
 <App xmlns="http://schemas.microsoft.com/sharepoint/2012/app/manifest"
      Name="KnowledgeForImpactApp"
      ProductID="{10b481bd-b21b-41ff-b380-1de43d45a567}"
-     Version="1.0.0.1"
+     Version="1.0.0.0"
      SharePointMinVersion="16.0.0.0"
 >
   <Properties>

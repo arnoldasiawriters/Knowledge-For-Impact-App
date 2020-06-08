@@ -316,8 +316,9 @@
                 var data = {};
                 data.Title = "Total Reach Planning for " + reachdata.project.title + " for quarter " + reachdata.quarter.title;
                 data.ProjectId = reachdata.project.id;
-                data.CountryId = reachdata.country.id;
-                data.GrantCodeId = reachdata.grant.id;
+                data.CountryId = reachdata.project.country.id;
+                data.GrantCodeId = reachdata.project.grantcode.id;
+                data.GlobalProgrammeId = reachdata.project.programme.id;
                 data.MEPersonId = svc.userid;
                 data.FinancialQuarterId = reachdata.quarter.id;
                 data.ReachType = "Total";
@@ -343,8 +344,9 @@
                 var data = {};
                 data.Title = "New Reach Planning for " + reachdata.project.title + " for quarter " + reachdata.quarter.title;
                 data.ProjectId = reachdata.project.id;
-                data.CountryId = reachdata.country.id;
-                data.GrantCodeId = reachdata.grant.id;
+                data.CountryId = reachdata.project.country.id;
+                data.GrantCodeId = reachdata.project.grantcode.id;
+                data.GlobalProgrammeId = reachdata.project.programme.id;
                 data.MEPersonId = svc.userid;
                 data.FinancialQuarterId = reachdata.quarter.id;
                 data.ReachType = "New";

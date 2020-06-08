@@ -5,16 +5,17 @@
         .module('projects', [])
         .controller('projectsCtrl', ProjectsCtrl);
 
-    ProjectsCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$routeParams', '$location', 'projectsSvc', 'countriesSvc', 'programmesSvc', 'spinnerService', 'UtilService', 'growl'];
-    function ProjectsCtrl($q, $dialogConfirm, $route, $routeParams, $location, projectsSvc, countriesSvc, programmesSvc, spinnerService, UtilService, growl) {
+    ProjectsCtrl.$inject = ['$q', '$dialogConfirm', '$route', '$routeParams', '$location', 'grantsSvc', 'projectsSvc', 'countriesSvc', 'programmesSvc', 'spinnerService', 'UtilService', 'growl'];
+    function ProjectsCtrl($q, $dialogConfirm, $route, $routeParams, $location, grantsSvc, projectsSvc, countriesSvc, programmesSvc, spinnerService, UtilService, growl) {
         var ctrl = this;
         ctrl.project = {};
         ctrl.hostWebUrl = projectsSvc.hostWebUrl;
         ctrl.action = $route.current.$$route.param;
         ctrl.links = UtilService.getAppShortcutlinks(6);
         ctrl.projId = $routeParams.id;
+        ctrl.project.mereport = true;
 
-        if (ctrl.action == 'list') {
+        if (!ctrl.action == 'add') {
             spinnerService.show('spinner1');
         }
 
@@ -22,6 +23,7 @@
         promises.push(projectsSvc.getAllItems());
         promises.push(countriesSvc.getAllItems());
         promises.push(programmesSvc.getAllItems());
+        promises.push(grantsSvc.getAllItems());
 
         $q
             .all(promises)
@@ -29,6 +31,7 @@
                 ctrl.projects = data[0];
                 ctrl.countries = data[1];
                 ctrl.programmes = data[2];
+                ctrl.grantcodes = data[3];
                 if (ctrl.projId && ctrl.action == 'edit') {
                     ctrl.project = _.find(ctrl.projects, function (p) {
                         return p.id == ctrl.projId;
@@ -89,6 +92,14 @@
                             spinnerService.closeAll();
                         })
                 });
+        };
+
+        ctrl.changeStatus = function (mereport) {
+            if (mereport == true) {
+                ctrl.project.mereport = false;
+            } else {
+                ctrl.project.mereport = true;
+            }
         };
     }
 })();

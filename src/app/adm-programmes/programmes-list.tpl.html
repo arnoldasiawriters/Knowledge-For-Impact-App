@@ -16,7 +16,7 @@
                                     <th style="min-width: 150px"></th>
                                 </tr>
 
-                                <tr dir-paginate="programme in ctrl.programmes | orderBy: 'programme' | itemsPerPage: 10">
+                                <tr dir-paginate="programme in ctrl.programmes | itemsPerPage: 10">
                                     <td><span>{{programme.title}}</span></td>
                                     <td>
                                         <div class="dropdown">

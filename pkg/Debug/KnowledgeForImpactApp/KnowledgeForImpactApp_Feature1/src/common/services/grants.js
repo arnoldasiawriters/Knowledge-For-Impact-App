@@ -26,7 +26,7 @@
                         grant.donor = o.Donor;
                         grantsList.push(grant);
                     });
-                    defer.resolve(grantsList);
+                    defer.resolve(_.orderBy(grantsList, ['title'], ['asc']));
                 })
                 .catch(function (error) {
                     defer.reject(error);
@@ -52,7 +52,7 @@
                     .then(function (response) {
                         grant.id = response.ID;
                         grantsList.push(grant);
-                        defer.resolve(grantsList);
+                        defer.resolve(_.orderBy(grantsList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -71,7 +71,7 @@
                         _.remove(grantsList, {
                             id: id
                         });
-                        defer.resolve(grantsList);
+                        defer.resolve(_.orderBy(grantsList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);

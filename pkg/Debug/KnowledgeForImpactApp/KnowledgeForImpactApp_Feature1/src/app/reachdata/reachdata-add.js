@@ -32,8 +32,8 @@
 
         var promises = [];
         promises.push(YearsSvc.getAllItems());
-        promises.push(programmesSvc.getAllItems());
-        promises.push(countriesSvc.getAllItems());
+        //promises.push(programmesSvc.getAllItems());
+        //promises.push(countriesSvc.getAllItems());
         promises.push(grantsSvc.getAllItems());
         promises.push(projectsSvc.getAllItems());
         promises.push(docTypesSvc.getAllItems());
@@ -42,14 +42,15 @@
             .all(promises)
             .then(function (results) {
                 ctrl.years = results[0];
-                ctrl.programmes = results[1];
-                ctrl.countries = results[2];
-                ctrl.grants = results[3];
-                ctrl.projects = results[4];
-                ctrl.doctypes = results[5];
-                ctrl.allowactualnoplan = (_.find(results[6], ['code', 'SR001'])).value;
-                ctrl.allowactualnosupport = (_.find(results[6], ['code', 'SR002'])).value;
-                ctrl.settings = results[6];
+                //ctrl.programmes = results[1];
+                //ctrl.countries = results[2];
+                ctrl.grants = results[1];
+                ctrl.projects = results[2];
+                ctrl.doctypes = results[3];
+                ctrl.settings = results[4];
+                ctrl.allowactualnoplan = (_.find(ctrl.settings, ['code', 'SR001'])).value;
+                ctrl.allowactualnosupport = (_.find(ctrl.settings, ['code', 'SR002'])).value;
+                
             }).catch(function (error) {
                 growl.error(error);
             }).finally(function () {
@@ -359,17 +360,17 @@
             } else if (!ctrl.reachdata.quarter) {
                 testRes.passed = false;
                 testRes.message = "Select the financial quater in which the project is implemented!";
-            } else if (!ctrl.reachdata.country) {
-                testRes.passed = false;
-                testRes.message = "Select the country where project is implemented!";
-            } else if (!ctrl.reachdata.grant) {
+            //} else if (!ctrl.reachdata.country) {
+            //    testRes.passed = false;
+            //    testRes.message = "Select the country where project is implemented!";
+            } else if (!ctrl.reachdata.project.grantcode) {
                 testRes.passed = false;
                 testRes.message = "Select the grant funding the project!";
             }
-            else if (!ctrl.reachdata.programme) {
-                testRes.passed = false;
-                testRes.message = "Select the Global Programmes & OR Initiatives in which this project belongs!";
-            }
+            //else if (!ctrl.reachdata.programme) {
+            //    testRes.passed = false;
+            //    testRes.message = "Select the Global Programmes & OR Initiatives in which this project belongs!";
+            //}
             else if (!ctrl.reachdata.project) {
                 testRes.passed = false;
                 testRes.message = "Select the Project Code!";

@@ -16,7 +16,7 @@
                                     <th style="min-width: 150px"></th>
                                 </tr>
 
-                                <tr dir-paginate="country in ctrl.countries | orderBy: 'country' | itemsPerPage: 10">
+                                <tr dir-paginate="country in ctrl.countries | itemsPerPage: 10">
                                     <td><span>{{country.title}}</span></td>
                                     <td>
                                         <div class="dropdown">

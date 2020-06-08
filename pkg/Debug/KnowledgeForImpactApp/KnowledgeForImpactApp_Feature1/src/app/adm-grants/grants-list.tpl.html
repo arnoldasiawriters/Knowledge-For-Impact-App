@@ -16,7 +16,7 @@
                                     <th>Donor</th>
                                     <th style="min-width: 150px"></th>
                                 </tr>
-                                <tr dir-paginate="grant in ctrl.grants | orderBy: 'grant' | itemsPerPage: 10">
+                                <tr dir-paginate="grant in ctrl.grants | itemsPerPage: 10">
                                     <td><span>{{grant.title}}</span></td>
                                     <td><span>{{grant.donor}}</span></td>
                                     <td>

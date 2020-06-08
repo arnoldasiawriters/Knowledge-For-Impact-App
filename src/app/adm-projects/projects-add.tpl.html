@@ -1,4 +1,4 @@
-﻿<div class="bootstrap-iso ng-scope">
+﻿<div class="bootstrap-iso ng-scope settings">
     <back-btn title="Back to Projects List" link="listAdminProjects"></back-btn>
     <div class="row">
         <div class="col-md-3">
@@ -57,14 +57,28 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">ME Report:</label>
-                                    <select ng-model="ctrl.project.mereport" class="select form-control">
-                                        <option value="" class="">-- Choose to Report --</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                    <label class="control-label">Grant Code:</label>
+                                    <select ng-model="ctrl.project.grantcode"
+                                            ng-options="x.title for x in ctrl.grantcodes track by x.id"
+                                            class="select form-control">
+                                        <option value="" class="" selected="selected">-- Choose Grant Code --</option>
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">ME Report:</label>
+                                    <i class="fa fa-toggle-on active" ng-if="ctrl.project.mereport == true" ng-click="ctrl.changeStatus(ctrl.project.mereport)"></i>
+                                    <i class="fa fa-toggle-on fa-rotate-180 inactive" ng-if="ctrl.project.mereport == false" ng-click="ctrl.changeStatus(ctrl.project.mereport);"></i>
+                                    <!--<select ng-model="ctrl.project.mereport" class="select form-control">
+                                        <option value="" class="">-- Choose to Report --</option>
+                                        <option ng-value="true" ng-selected="ctrl.project.mereport == true">Yes</option>
+                                        <option ng-value="false" ng-selected="ctrl.project.mereport == false">No</option>
+                                    </select>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">ME Person:</label>
@@ -79,12 +93,13 @@
                                                       app-web-url="ctrl.hostWebUrl" />
                                 </div>
                             </div>
+                            <div class="col-md-6"></div>
                         </div>
                     </div>
                     <div class="panel-footer clearfix">
                         <div class="form-group pull-right">
                             <a href="" class="btn btn-success" ng-disabled="!ctrl.project.title || !ctrl.project.code" ng-click="ctrl.AddRecord()">
-                                <i class="fa fa-save"></i> Add Record
+                                <i class="fa fa-save"></i> {{  ctrl.action == 'edit' ? 'Update': 'Add' }} Record
                             </a>
                             <a href="#listAdminProjects" class="btn btn-warning ">
                                 <i class="fa fa-cut"></i> Cancel

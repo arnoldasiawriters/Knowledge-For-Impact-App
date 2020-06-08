@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SharePointSiteUrl>https://vsointernational.sharepoint.com/sites/develop-addins/kfi-uat/</SharePointSiteUrl>
+    <SharePointSiteUrl>https://vsointernational.sharepoint.com/sites/develop-addins/kfi/</SharePointSiteUrl>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{C1CDDADD-2546-481F-9697-4EA41081F2FC}">
         <ProjectStore>
-          <AppInstanceId>ff6e3463-6081-4a5e-a1d2-0e0edcbea5f9</AppInstanceId>
-          <AppInstancePackageModifiedTime>2020-06-02T17:09:46.4584199Z</AppInstancePackageModifiedTime>
+          <AppInstancePackageModifiedTime>2020-06-08T16:49:10.548031Z</AppInstancePackageModifiedTime>
+          <AppInstanceId>54972be1-de4b-47bd-8370-99b3f8d1a2ac</AppInstanceId>
         </ProjectStore>
       </FlavorProperties>
     </VisualStudio>

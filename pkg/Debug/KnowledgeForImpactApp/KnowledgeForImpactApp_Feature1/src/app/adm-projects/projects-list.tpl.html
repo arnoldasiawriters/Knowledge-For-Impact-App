@@ -12,18 +12,20 @@
                         <table class="table table-bordered table-condensed table-striped table-hover">
                             <tbody>
                                 <tr>
-                                    <th>Project Name</th>
                                     <th>Project Code</th>
+                                    <th>Project Name</th>
                                     <th>Programme</th>
+                                    <th>Grant Code</th>
                                     <th>Country</th>
                                     <th>Status</th>
                                     <th>ME Person/s</th>
                                     <th style="min-width: 120px"></th>
                                 </tr>
-                                <tr dir-paginate="project in ctrl.projects | orderBy: 'title' | itemsPerPage: 10">
-                                    <td><span>{{project.title}}</span></td>
+                                <tr dir-paginate="project in ctrl.projects | itemsPerPage: 10">
                                     <td><span>{{project.code}}</span></td>
+                                    <td><span>{{project.title}}</span></td>
                                     <td><span>{{project.programme.title}}</span></td>
+                                    <td><span>{{project.grantcode.title}}</span></td>
                                     <td><span>{{project.country.title}}</span></td>
                                     <td><span>{{project.mereport}}</span></td>
                                     <td>

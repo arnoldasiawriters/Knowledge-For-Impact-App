@@ -16,7 +16,7 @@
                                     <th style="min-width: 150px"></th>
                                 </tr>
 
-                                <tr dir-paginate="doctype in ctrl.doctypes | orderBy: 'doctype' | itemsPerPage: 10">
+                                <tr dir-paginate="doctype in ctrl.doctypes | itemsPerPage: 10">
                                     <td><span>{{doctype.title}}</span></td>
                                     <td>
                                         <div class="dropdown">

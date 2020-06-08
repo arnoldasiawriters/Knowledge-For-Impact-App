@@ -20,7 +20,7 @@
                                     <th>Abbr</th>
                                     <th style="min-width: 120px"></th>
                                 </tr>
-                                <tr dir-paginate="quarter in ctrl.quarters | orderBy: '-year' | orderBy: 'title' | itemsPerPage: 12">
+                                <tr dir-paginate="quarter in ctrl.quarters | orderBy: '-year' | itemsPerPage: 12">
                                     <td><span>{{quarter.title}}</span></td>
                                     <td><span>{{quarter.year.title}}</span></td>
                                     <td><span>{{quarter.startdate  | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>

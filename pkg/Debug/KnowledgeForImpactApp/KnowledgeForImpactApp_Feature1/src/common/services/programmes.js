@@ -25,7 +25,7 @@
                         prog.title = o.Title;
                         progsList.push(prog);
                     });
-                    defer.resolve(progsList);
+                    defer.resolve(_.orderBy(progsList, ['title'], ['asc']));
                 })
                 .catch(function (error) {
                     defer.reject(error);
@@ -50,7 +50,7 @@
                     .then(function (response) {
                         programme.id = response.ID;
                         progsList.push(programme);
-                        defer.resolve(progsList);
+                        defer.resolve(_.orderBy(progsList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -69,7 +69,7 @@
                         _.remove(progsList, {
                             id: id
                         });
-                        defer.resolve(progsList);
+                        defer.resolve(_.orderBy(progsList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);

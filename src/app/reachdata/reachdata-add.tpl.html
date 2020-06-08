@@ -16,7 +16,7 @@
         <li class="active"><a data-toggle="tab" href="#background" target="_self">Background Information</a></li>
         <li><a data-toggle="tab" href="#reach" target="_self">Total & New Reach Data (Actuals)</a></li>
         <li><a data-toggle="tab" href="#support" target="_self">Supporting Documents</a></li>
-        <li><a data-toggle="tab" href="#comms" target="_self">Communications</a></li>
+        <li><a data-toggle="tab" href="#submission" target="_self">Submission</a></li>
     </ul>
 
     <div class="tab-content">
@@ -50,40 +50,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Country:</label>
-                                            <select ng-model="ctrl.reachdata.country"
-                                                    ng-options="x.title for x in ctrl.countries track by x.id"
-                                                    class="select form-control">
-                                                <option value="" class="" selected="selected">-- Select Country --</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Grant Code:</label>
-                                            <select ng-model="ctrl.reachdata.grant"
-                                                    ng-options="x.title for x in ctrl.grants track by x.id"
-                                                    class="select form-control">
-                                                <option value="" class="" selected="selected">-- Select Grant Code --</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label">Global Programmes & OR Initiatives:</label>
-                                            <select ng-model="ctrl.reachdata.programme"
-                                                    ng-options="x.title for x in ctrl.programmes track by x.id"
-                                                    class="select form-control">
-                                                <option value="" class="" selected="selected">-- Select Practice Areas --</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -107,6 +74,53 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Global Programmes & OR Initiatives:</label>
+                                            <input class="form-control"
+                                                   type="text"
+                                                   name="title"
+                                                   ng-model="ctrl.reachdata.project.programme.title"
+                                                   readonly>
+                                            <!--<select ng-model="ctrl.reachdata.programme"
+                                                    ng-options="x.title for x in ctrl.programmes track by x.id"
+                                                    class="select form-control">
+                                                <option value="" class="" selected="selected">-- Select Practice Areas --</option>
+                                            </select>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Grant Code:</label>
+                                            <select ng-model="ctrl.reachdata.project.grantcode"
+                                                    ng-options="x.title for x in ctrl.grants track by x.id"
+                                                    class="select form-control">
+                                                <option value="" class="" selected="selected">-- Select Grant Code --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Country:</label>
+                                            <!--<select ng-model="ctrl.reachdata.country"
+                                                    ng-options="x.title for x in ctrl.countries track by x.id"
+                                                    class="select form-control">
+                                                <option value="" class="" selected="selected">-- Select Country --</option>
+                                            </select>-->
+                                            <input class="form-control"
+                                                   type="text"
+                                                   name="title"
+                                                   ng-model="ctrl.reachdata.project.country.title"
+                                                   readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -196,7 +210,7 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <button data-toggle="tab" class="btn btn-info pull-right btnNext" ng-click="ctrl.scrollToTop()">Next to Reach Data Actuals >>></button>
+                            <button data-toggle="tab" class="btn btn-info pull-right btnNext">Next to Reach Data Actuals >>></button>
                         </div>
                     </div>
                 </div>
@@ -341,8 +355,8 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <button data-toggle="tab" class="btn btn-info btnPrevious" ng-click="ctrl.scrollToTop()"><<< Background Information</button>
-                            <button data-toggle="tab" class="btn btn-info pull-right btnNext" ng-click="ctrl.scrollToTop()">Next to Supporting Documents >>></button>
+                            <button data-toggle="tab" class="btn btn-info btnPrevious"><<< Background Information</button>
+                            <button data-toggle="tab" class="btn btn-info pull-right btnNext">Next to Supporting Documents >>></button>
                         </div>
                     </div>
                 </div>
@@ -419,6 +433,28 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button data-toggle="tab" class="btn btn-info btnPrevious"><<< Back to Reach Data Actuals</button>
+                            <button data-toggle="tab" class="btn btn-info pull-right btnNext">Next to Communications >>></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="submission" class="tab-pane fade">
+            <div class="panel panel-info">
+                <div class="panel-heading pnl-heading">DATA SUBMISSION</div>
+                <div class="panel-body">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p>Click the button below to submit the data that you have filled in this form.</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-9">
                             <a href="" class="btn btn-success pull-right" ng-click="ctrl.submitReachDataActuals()">
@@ -430,59 +466,7 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <button data-toggle="tab" class="btn btn-info btnPrevious" ng-click="ctrl.scrollToTop()"><<< Back to Reach Data Actuals</button>
-                            <button data-toggle="tab" class="btn btn-info pull-right btnNext" ng-click="ctrl.scrollToTop()">Next to Communications >>></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="comms" class="tab-pane fade">
-            <div class="well">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading" id="accordion">
-                                <span class="glyphicon glyphicon-comment"></span> Reach Data Conversations for {{ctrl.reachdata.project.title}} {{ctrl.reachdata.quarter.title}} Year {{ctrl.reachdata.year.title}}
-                            </div>
-
-                            <div class="panel-body">
-                                <ul class="chat">
-                                    <li class="left clearfix" ng-repeat="comment in ctrl.comments">
-                                        <span class="chat-img pull-left"><img src="images/adminImage.png" alt="Admin Avatar" class="img-circle" ng-if="comment.usertype=='Admin'" /></span>
-                                        <span class="chat-img pull-right"><img src="images/userImage.png" alt="User Avatar" class="img-circle" ng-if="comment.usertype=='User'" /></span>
-
-                                        <div class="chat-body clearfix">
-                                            <div class="header" ng-if="comment.usertype=='Admin'">
-                                                <small class=" text-muted">
-                                                    <span class="glyphicon glyphicon-time"></span>{{comment.commentdate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}
-                                                </small>
-                                                <strong class="pull-right primary-font">{{comment.commentby.title}}</strong>
-                                            </div>
-                                            <div class="header" ng-if="comment.usertype=='User'">
-                                                <strong class="primary-font">{{comment.commentby.title}}</strong>
-                                                <small class="pull-right text-muted">
-                                                    <span class="glyphicon glyphicon-time"></span>{{comment.commentdate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}
-                                                </small>
-                                            </div>
-                                            <p>{{comment.comment}}</p>
-                                            <a href="" class="btn btn-xs btn-danger pull-right" ng-click="ctrl.deleteComment(comment.id)" ng-if="comment.usertype=='Admin' && comment.commentby.id == ctrl.userid">Delete</a>
-                                            <a href="" class="btn btn-xs btn-danger pull-left" ng-click="ctrl.deleteComment(comment.id)" ng-if="comment.usertype=='User' && comment.commentby.id == ctrl.userid">Delete</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="input-group">
-                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." ng-model="ctrl.comment" />
-                                    <span class="input-group-btn">
-                                        <a href="" class="btn btn-warning btn-sm" ng-click="ctrl.addComment()">
-                                            Send Comment
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-
+                            <button data-toggle="tab" class="btn btn-info btnPrevious"><<< Back to Supporting Documents</button>
                         </div>
                     </div>
                 </div>

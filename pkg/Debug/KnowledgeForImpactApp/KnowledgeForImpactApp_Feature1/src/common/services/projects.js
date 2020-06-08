@@ -15,7 +15,8 @@
 
         svc.getAllItems = function () {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,Code,GlobalProgramme/Id,GlobalProgramme/Title,Country/Id,Country/Title,MEPerson/Id,MEPerson/Title,MEReport&$expand=GlobalProgramme,Country,MEPerson";
+            var queryParams = "$select=Id,Title,Code,GlobalProgramme/Id,GlobalProgramme/Title,Country/Id,Country/Title,MEPerson/Id,MEPerson/Title," +
+                "GrantCode/Id,GrantCode/Title,MEReport&$expand=GlobalProgramme,GrantCode,Country,MEPerson";
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -25,6 +26,7 @@
                         project.id = o.Id;
                         project.title = o.Title;
                         project.code = o.Code;
+                        project.grantcode = _.isNil(o.GrantCode) ? '' : { id: o.GrantCode.Id, title: o.GrantCode.Title };
                         project.programme = _.isNil(o.GlobalProgramme) ? '' : { id: o.GlobalProgramme.Id, title: o.GlobalProgramme.Title };
                         project.country = _.isNil(o.Country) ? '' : { id: o.Country.Id, title: o.Country.Title };
                         project.mereport = o.MEReport;
@@ -39,7 +41,7 @@
                         }
                         projectsList.push(project);
                     });
-                    defer.resolve(projectsList);
+                    defer.resolve(_.orderBy(projectsList, ['code'], ['asc']));
                 })
                 .catch(function (error) {
                     defer.reject(error);
@@ -97,10 +99,11 @@
                                 var data = {
                                     Title: project.title,
                                     Code: project.code,
+                                    GrantCodeId: project.grantcode.id,
                                     GlobalProgrammeId: project.programme.id,
                                     CountryId: project.country.id,
                                     MEPersonId: { "results": meidstosave },
-                                    MEReport: mereport
+                                    MEReport: project.mereport
                                 };
 
                                 ShptRestService
@@ -108,7 +111,7 @@
                                     .then(function (response) {
                                         project.id = response.ID;
                                         projectsList.push(project);
-                                        defer.resolve(projectsList);
+                                        defer.resolve(_.orderBy(projectsList, ['code'], ['asc']));
                                     })
                                     .catch(function (error) {
                                         console.log(error);
@@ -157,8 +160,9 @@
                             Code: project.code,
                             GlobalProgrammeId: project.programme.id,
                             CountryId: project.country.id,
+                            GrantCodeId: project.grantcode.id,
                             MEPersonId: { "results": meidstosave },
-                            MEReport: mereport
+                            MEReport: project.mereport
                         };
                         ShptRestService
                             .updateListItem(listname, project.id, data)
@@ -166,7 +170,7 @@
                                 svc
                                     .getAllItems()
                                     .then(function (projs) {
-                                        defEditProj.resolve(projs);
+                                        defEditProj.resolve(_.orderBy(projs, ['code'], ['asc']));
                                     })
                                     .catch(function (error) {
                                         defEditProj.reject(error);
@@ -196,7 +200,7 @@
                         _.remove(projectsList, {
                             id: id
                         });
-                        defer.resolve(projectsList);
+                        defer.resolve(_.orderBy(projectsList, ['code'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);

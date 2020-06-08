@@ -5,8 +5,8 @@
         .module('reachdata-plan', [])
         .controller('reachDataPlanCtrl', ReachDataCtrl);
 
-    ReachDataCtrl.$inject = ['$q', '$dialogConfirm', '$dialogAlert', '$route', '$location', '$anchorScroll', 'reachdatasvc', 'YearsSvc', 'programmesSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'growl'];
-    function ReachDataCtrl($q, $dialogConfirm, $dialogAlert, $route, $location, $anchorScroll, reachdatasvc, YearsSvc, programmesSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, growl) {
+    ReachDataCtrl.$inject = ['$q', '$dialogConfirm', '$dialogAlert', '$route', '$location',  'reachdatasvc', 'YearsSvc', 'programmesSvc', 'countriesSvc', 'grantsSvc', 'projectsSvc', 'spinnerService', 'growl'];
+    function ReachDataCtrl($q, $dialogConfirm, $dialogAlert, $route, $location, reachdatasvc, YearsSvc, programmesSvc, countriesSvc, grantsSvc, projectsSvc, spinnerService, growl) {
         var ctrl = this;
         ctrl.userid = _spPageContextInfo.userId;
         ctrl.action = $route.current.$$route.param;
@@ -41,11 +41,6 @@
             .finally(function () {
                 spinnerService.closeAll();
             });;
-
-        ctrl.scrollToTop = function () {
-            $location.hash('planReachData');
-            $anchorScroll();
-        };
 
         ctrl.submitReachDataPlan = function () {
             if (!ctrl.reachdata.year) {
@@ -91,7 +86,6 @@
                     }
                     $dialogConfirm('Add Records?', 'Confirm Transaction')
                         .then(function () {
-                            //ctrl.scrollToTop();
                             spinnerService.show('spinner1');
                             reachdatasvc
                                 .addReachDataPlans(ctrl.reachdata)

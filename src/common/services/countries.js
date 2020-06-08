@@ -25,7 +25,7 @@
                         country.title = o.Title;
                         countriesList.push(country);
                     });
-                    defer.resolve(countriesList);
+                    defer.resolve(_.orderBy(countriesList, ['title'], ['asc']));
                 })
                 .catch(function (error) {
                     defer.reject(error);
@@ -50,7 +50,7 @@
                     .then(function (response) {
                         country.id = response.ID;
                         countriesList.push(country);
-                        defer.resolve(countriesList);
+                        defer.resolve(_.orderBy(countriesList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -69,7 +69,7 @@
                         _.remove(countriesList, {
                             id: id
                         });
-                        defer.resolve(countriesList);
+                        defer.resolve(_.orderBy(countriesList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);

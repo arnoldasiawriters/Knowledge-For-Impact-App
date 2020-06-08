@@ -25,7 +25,7 @@
                         type.title = o.Title;
                         docTypeList.push(type);
                     });
-                    defer.resolve(docTypeList);
+                    defer.resolve(_.orderBy(docTypeList, ['title'], ['asc']));
                 })
                 .catch(function (error) {
                     defer.reject(error);
@@ -50,7 +50,7 @@
                     .then(function (response) {
                         doctype.id = response.ID;
                         docTypeList.push(doctype);
-                        defer.resolve(docTypeList);
+                        defer.resolve(_.orderBy(docTypeList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -69,7 +69,7 @@
                         _.remove(docTypeList, {
                             id: id
                         });
-                        defer.resolve(docTypeList);
+                        defer.resolve(_.orderBy(docTypeList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);
